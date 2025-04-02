@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title Tag -->
+    <title>Biz</title>
+    <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="static/css/base.css">    
+    <link rel="stylesheet" href="static/css/contact.css">    
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+
+    <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <header id="computer_header">
+        <div id="left_header">
+            <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
+        </div>
+        <div id="middle_header">
+            <a href="index.html" class="header_anchor_tags">Home</a>
+            <div class="right_border"></div>
+            <a href="about.html" class="header_anchor_tags">About</a>
+            <div class="right_border"></div>
+            <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+        </div>
+        <div id="right_header">
+            <a href=""><img src="static/images/insta.png" alt=""></a>
+            <a href=""><img src="static/images/fb.png" alt=""></a>
+            <a id="english_lang" href="javascript:void(0)" onclick="set_lang_to_english()" class="header_anchor_tags">EN</a>
+            <a id="slovak_lang" href="javascript:void(0)" onclick="set_lang_to_slovak()" class="header_anchor_tags">SK</a>
+        </div>
+    </header>
+
+    <header id="mobile_header">
+        <div id="left_header">
+            <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
+        </div>
+        <div id="right_header">
+            <span style="font-size:30px;cursor:pointer" onclick="openMobileHeader()">&#9776;</span>
+        </div>
+    </header>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeMobileHeader()">&times;</a>
+        <a href="index.html" class="header_anchor_tags">Home</a>
+        <a href="about.html" class="header_anchor_tags">About</a>
+        <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+        <div id="links_mob">
+            <a href=""><img src="static/images/insta-light.png" alt=""></a>
+            <a href=""><img src="static/images/fb-light.png" alt=""></a>
+            <a id="english_lang_mob" href="javascript:void(0)" onclick="set_lang_to_english()"
+                class="header_anchor_tags">EN</a>
+            <a id="slovak_lang_mob" href="javascript:void(0)" onclick="set_lang_to_slovak()"
+                class="header_anchor_tags">SK</a>
+        </div>
+    </div>
+
+    <section id="contact">
+        <div id="contact_inner">
+            <div id="left_contact_info">
+                <h2>Contact Us</h2>
+                <div id="contact_info_inner">
+                    <div class="contact_info">
+                        <h3>Address</h3>
+                        <p>1234 Street Name, City, Country</p>
+                    </div>
+                    <div class="contact_info">
+                        <h3>Phone</h3>
+                        <p>1234567890</p>
+                    </div>
+                    <div class="contact_info">
+                        <h3>Email</h3>
+                        <p>ananya@iiteam.eu</p>
+                    </div>
+                </div>
+            </div>
+            <div id="right_contact_info">
+                <h2>Submit Your Organization</h2>
+                <div id="form">
+                    <div class="two">
+                        <div class="input_field">
+                            <label for="org_name">
+                                Organization Name 
+                                <div class="info-container">
+                                    <div class="info-tooltip">
+                                        Name of your Organization
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
+                                </div>
+                            </label>
+                            <input type="text" id="org_name" name="org_name" placeholder="Awesome Organization" required>
+                            
+                        </div>
+                        <div class="input_field">
+                            <label for="responsible_person">Responsible Person <div class="info-container">
+                                <div class="info-tooltip">
+                                    Your name or name of person responsible for this organization
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <input type="text" id="responsible_person" name="responsible_person" placeholder="John Doe" required>
+                        </div>
+                    </div>
+                    <div class="two">
+                        <div class="input_field">
+                            <label for="email">Email <div class="info-container">
+                                <div class="info-tooltip">
+                                    Email address for the responsible person or your organization
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <input type="email" id="email" name="email" placeholder="johndoe@awesome.com" required>
+                        </div>
+                        <div class="input_field">
+                            <label for="phone">Phone <div class="info-container">
+                                <div class="info-tooltip">
+                                    Phone number for the responsible person or your organization
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <input type="number" id="phone" name="phone" placeholder="+1234567890" required>
+                        </div>
+                    </div>
+                    <div class="two">
+                        <div class="input_field">
+                            <label for="webpage">Webpage <div class="info-container">
+                                <div class="info-tooltip">
+                                    Website for your organization
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <input type="text" id="webpage" name="webpage" placeholder="https://awesome-organization.com/" required>
+                        </div>
+                        <div class="input_field">
+                            <label for="linkedin">Linkedin <div class="info-container">
+                                <div class="info-tooltip">
+                                    Linkedin page for your organization
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <input type="text" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/awesomeOrganization" required>
+                        </div>
+                    </div>
+                    <div class="two">
+                        <div class="input_field">
+                            <label for="pdf">PDF <div class="info-container">
+                                <div class="info-tooltip">
+                                    PDF file with information about your organization so people can chat and learn more about your organization.
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <input type="file" id="pdf" name="pdf" class="file_field" accept=".pdf" required>
+                        </div>
+                        <div class="input_field">
+                            <label for="profile_photo">Profile Photo <div class="info-container">
+                                <div class="info-tooltip">
+                                    Profile photo of your organization. This will be used as a profile picture for your card.
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <input type="file" id="profile_photo" class="file_field" name="profile_photo" accept=".png,.jpeg,.jpg"required>
+                        </div>
+                    </div>
+                    <div class="one">
+                        <div class="input_field_full">
+                            <label for="description">Description <div class="info-container">
+                                <div class="info-tooltip">
+                                    Description of your organization. This will be used as a description for your card.
+                                </div>
+                                <span class="info"><img src="static/images/info.png" alt=""></span>
+                            </div></label>
+                            <textarea name="description" id="description" placeholder="My Organization is AWESOME! Here are some facts about us..." required></textarea>
+                        </div>
+                    </div>
+                    <div id="submit_button_outer">
+                        <a href="javascript:void(0)" id="submit_button" class="button" onclick="submit_contact_form()">
+                            <span>Submit</span>
+                            <img id="arrow" src="static/images/arrow.png" alt="Arrow">
+                            <img id="dark_arrow" src="static/images/arrow-dark.png" alt="Arrow">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="loader">
+        <div class="loader-2"></div>
+    </div>
+
+    <script src="static/js/base.js"></script>
+    <script src="static/js/contact.js"></script>
+</body>
+</html>

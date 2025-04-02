@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title Tag -->
+    <title>Biz</title>
+    <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="static/css/index.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+
+    <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <header id="computer_header">
+        <div id="left_header">
+            <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
+        </div>
+        <div id="middle_header">
+            <a href="index.html" class="header_anchor_tags">Home</a>
+            <div class="right_border"></div>
+            <a href="about.html" class="header_anchor_tags">About</a>
+            <div class="right_border"></div>
+            <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+        </div>
+        <div id="right_header">
+            <a href=""><img src="static/images/insta.png" alt=""></a>
+            <a href=""><img src="static/images/fb.png" alt=""></a>
+            <a id="english_lang" href="javascript:void(0)" onclick="set_lang_to_english()"
+                class="header_anchor_tags">EN</a>
+            <a id="slovak_lang" href="javascript:void(0)" onclick="set_lang_to_slovak()"
+                class="header_anchor_tags">SK</a>
+        </div>
+    </header>
+
+    <header id="mobile_header">
+        <div id="left_header">
+            <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
+        </div>
+        <div id="right_header">
+            <span style="font-size:30px;cursor:pointer" onclick="openMobileHeader()">&#9776;</span>
+        </div>
+    </header>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeMobileHeader()">&times;</a>
+        <a href="index.html" class="header_anchor_tags">Home</a>
+        <a href="about.html" class="header_anchor_tags">About</a>
+        <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+        <div id="links_mob">
+            <a href=""><img src="static/images/insta-light.png" alt=""></a>
+            <a href=""><img src="static/images/fb-light.png" alt=""></a>
+            <a id="english_lang_mob" href="javascript:void(0)" onclick="set_lang_to_english()"
+                class="header_anchor_tags">EN</a>
+            <a id="slovak_lang_mob" href="javascript:void(0)" onclick="set_lang_to_slovak()"
+                class="header_anchor_tags">SK</a>
+        </div>
+    </div>
+
+
+    <section id="cards">
+
+    </section>
+
+    <script src="static/js/base.js"></script>
+    <script src="static/js/index.js"></script>
+</body>
+
+</html>

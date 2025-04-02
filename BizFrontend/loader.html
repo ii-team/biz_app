@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* *,
+        ::after {
+            box-sizing: border-box;
+        }
+    
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        } */
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            width: 100%;
+            height: 100vh;
+            background-color: #00000050;
+            position: absolute;
+            z-index: 100;
+        }
+    
+        
+    
+        .loader-2 {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            border-width: 0.5rem;
+            border-style: solid;
+            border-color: #F6F1F1;
+            display: inline-block;
+            position: relative;
+        }
+    
+        .loader-2::after {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            border-width: 0.5rem;
+            border-style: solid;
+            border-color: transparent transparent transparent #000000;
+            content: "";
+            position: absolute;
+            top: -0.5rem;
+            left: -0.5rem;
+            animation: rotate 1s infinite linear;
+        }    
+        @keyframes rotate {
+            from {
+                transform: rotate(135deg);
+            }
+    
+            to {
+                transform: rotate(495deg);
+            }
+        }
+    
+        @keyframes dash {
+            0% {
+                stroke-dashoffset: 283;
+            }
+    
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+    
+        @media (min-width: 48rem) {
+            .container {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loader-2"></div>
+    </div>
+</body>
+</html>
+
+
+
