@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Title Tag -->
-    <title>Biz</title>
+    <title data-key="title">Biz</title>
     <link rel="icon" type="image/x-icon" href="static/images/logo.png">
 
     <!-- CSS Link -->
@@ -28,11 +28,10 @@
             <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
         </div>
         <div id="middle_header">
-            <a href="index.html" class="header_anchor_tags">Home</a>
-            <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+            <a href="index.html" class="header_anchor_tags" data-key="home">Home</a>
+            <a href="contact-us.html" class="header_anchor_tags" data-key="contact">Contact</a>
         </div>
         <div id="right_header">
-        
             <a id="english_lang" href="javascript:void(0)" onclick="set_lang_to_english()" class="header_anchor_tags">EN</a>
             <a id="slovak_lang" href="javascript:void(0)" onclick="set_lang_to_slovak()" class="header_anchor_tags">SK</a>
         </div>
@@ -49,12 +48,9 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeMobileHeader()">&times;</a>
-        <a href="index.html" class="header_anchor_tags">Home</a>
-        <a href="about.html" class="header_anchor_tags">About</a>
-        <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+        <a href="index.html" class="header_anchor_tags" data-key="home">Home</a>
+        <a href="contact-us.html" class="header_anchor_tags" data-key="contact">Contact</a>
         <div id="links_mob">
-            <a href=""><img src="static/images/insta-light.png" alt=""></a>
-            <a href=""><img src="static/images/fb-light.png" alt=""></a>
             <a id="english_lang_mob" href="javascript:void(0)" onclick="set_lang_to_english()"
                 class="header_anchor_tags">EN</a>
             <a id="slovak_lang_mob" href="javascript:void(0)" onclick="set_lang_to_slovak()"
@@ -65,123 +61,147 @@
     <section id="contact">
         <div id="contact_inner">
             <div id="left_contact_info">
-                <h2>Contact Us</h2>
+                <h2 data-key="contact_us">Contact Us</h2>
                 <div id="contact_info_inner">
                     <div class="contact_info">
-                        <h3>Address</h3>
-                        <p>1234 Street Name, City, Country</p>
+                        <h3 data-key="address_title">Address</h3>
+                        <p data-key="address_value">iiTeam sro – Gorkého 6, Košice, Slovakia</p>
                     </div>
                     <div class="contact_info">
-                        <h3>Phone</h3>
-                        <p>1234567890</p>
+                        <h3 data-key="phone_title">Phone</h3>
+                        <p data-key="phone_value">+421 908 322 546</p>
                     </div>
                     <div class="contact_info">
-                        <h3>Email</h3>
-                        <p>ananya@iiteam.eu</p>
+                        <h3 data-key="email_title">Email</h3>
+                        <p data-key="email_value">info@iiteam.euu</p>
                     </div>
                 </div>
             </div>
             <div id="right_contact_info">
-                <h2>Submit Your Organization</h2>
+                <h2 data-key="submit_org">Submit Your Organization</h2>
                 <div id="form">
                     <div class="two">
                         <div class="input_field">
                             <label for="org_name">
-                                Organization Name 
+                                <span data-key="org_name">Organization Name</span>
                                 <div class="info-container">
-                                    <div class="info-tooltip">
+                                    <div class="info-tooltip" data-key="org_name_tooltip">
                                         Name of your Organization
                                     </div>
                                     <span class="info"><img src="static/images/info.png" alt=""></span>
                                 </div>
                             </label>
-                            <input type="text" id="org_name" name="org_name" placeholder="Awesome Organization" required>
+                            <input type="text" id="org_name" name="org_name" data-key="org_name_placeholder" placeholder="Awesome Organization" required>
                             
                         </div>
                         <div class="input_field">
-                            <label for="responsible_person">Responsible Person <div class="info-container">
-                                <div class="info-tooltip">
-                                    Your name or name of person responsible for this organization
+                            <label for="responsible_person">
+                                <span data-key="responsible_person">Responsible Person</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="responsible_person_tooltip">
+                                        Your name or name of person responsible for this organization
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
                                 </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
-                            <input type="text" id="responsible_person" name="responsible_person" placeholder="John Doe" required>
+                            </label>
+                            <input type="text" id="responsible_person" name="responsible_person" data-key="responsible_person_placeholder" placeholder="John Doe" required>
                         </div>
                     </div>
                     <div class="two">
                         <div class="input_field">
-                            <label for="email">Email <div class="info-container">
-                                <div class="info-tooltip">
-                                    Email address for the responsible person or your organization
+                            <label for="email">
+                                <span data-key="email_label">Email</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="email_tooltip">
+                                        Email address for the responsible person or your organization
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
                                 </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
-                            <input type="email" id="email" name="email" placeholder="johndoe@awesome.com" required>
+                            </label>
+                            <input type="email" id="email" name="email" data-key="email_placeholder" placeholder="johndoe@awesome.com" required>
                         </div>
                         <div class="input_field">
-                            <label for="phone">Phone <div class="info-container">
-                                <div class="info-tooltip">
-                                    Phone number for the responsible person or your organization
+                            <label for="phone">
+                                <span data-key="phone_label">Phone</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="phone_tooltip">
+                                        Phone number for the responsible person or your organization
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
                                 </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
-                            <input type="number" id="phone" name="phone" placeholder="+1234567890" required>
-                        </div>
-                    </div>
-                    <div class="two">
-                        <div class="input_field">
-                            <label for="webpage">Webpage <div class="info-container">
-                                <div class="info-tooltip">
-                                    Website for your organization
-                                </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
-                            <input type="text" id="webpage" name="webpage" placeholder="https://awesome-organization.com/" required>
-                        </div>
-                        <div class="input_field">
-                            <label for="linkedin">Linkedin <div class="info-container">
-                                <div class="info-tooltip">
-                                    Linkedin page for your organization
-                                </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
-                            <input type="text" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/awesomeOrganization" required>
+                            </label>
+                            <input type="number" id="phone" name="phone" data-key="phone_placeholder" placeholder="+1234567890" required>
                         </div>
                     </div>
                     <div class="two">
                         <div class="input_field">
-                            <label for="pdf">PDF <div class="info-container">
-                                <div class="info-tooltip">
-                                    PDF file with information about your organization so people can chat and learn more about your organization.
+                            <label for="webpage">
+                                <span data-key="webpage_label">Webpage</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="webpage_tooltip">
+                                        Website for your organization
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
                                 </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
+                            </label>
+                            <input type="text" id="webpage" name="webpage" data-key="webpage_placeholder" placeholder="https://awesome-organization.com/" required>
+                        </div>
+                        <div class="input_field">
+                            <label for="linkedin">
+                                <span data-key="linkedin_label">Linkedin</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="linkedin_tooltip">
+                                        Linkedin page for your organization
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
+                                </div>
+                            </label>
+                            <input type="text" id="linkedin" name="linkedin" data-key="linkedin_placeholder" placeholder="https://linkedin.com/in/awesomeOrganization" required>
+                        </div>
+                    </div>
+                    <div class="two">
+                        <div class="input_field">
+                            <label for="pdf">
+                                <span data-key="pdf_label">PDF</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="pdf_tooltip">
+                                        PDF file with information about your organization so people can chat and learn more about your organization.
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
+                                </div>
+                            </label>
                             <input type="file" id="pdf" name="pdf" class="file_field" accept=".pdf" required>
                         </div>
                         <div class="input_field">
-                            <label for="profile_photo">Profile Photo <div class="info-container">
-                                <div class="info-tooltip">
-                                    Profile photo of your organization. This will be used as a profile picture for your card.
+                            <label for="profile_photo">
+                                <span data-key="profile_photo_label">Card Photo</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="profile_photo_tooltip">
+                                        Profile photo of your organization. This will be used as a profile picture for your card.
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
                                 </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
-                            <input type="file" id="profile_photo" class="file_field" name="profile_photo" accept=".png,.jpeg,.jpg"required>
+                            </label>
+                            <input type="file" id="profile_photo" class="file_field" name="profile_photo" accept=".png,.jpeg,.jpg" required>
                         </div>
                     </div>
                     <div class="one">
                         <div class="input_field_full">
-                            <label for="description">Description <div class="info-container">
-                                <div class="info-tooltip">
-                                    Description of your organization. This will be used as a description for your card.
+                            <label for="description">
+                                <span data-key="description_label">Description</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="description_tooltip">
+                                        Description of your organization. This will be used as a description for your card.
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
                                 </div>
-                                <span class="info"><img src="static/images/info.png" alt=""></span>
-                            </div></label>
-                            <textarea name="description" id="description" placeholder="My Organization is AWESOME! Here are some facts about us..." required></textarea>
+                            </label>
+                            <textarea name="description" id="description" data-key="description_placeholder" placeholder="My Organization is AWESOME! Here are some facts about us..." required></textarea>
                         </div>
                     </div>
                     <div id="submit_button_outer">
                         <a href="javascript:void(0)" id="submit_button" class="button" onclick="submit_contact_form()">
-                            <span>Submit</span>
+                            <span data-key="submit_button">Submit</span>
                             <img id="arrow" src="static/images/arrow.png" alt="Arrow">
                             <img id="dark_arrow" src="static/images/arrow-dark.png" alt="Arrow">
                         </a>
@@ -195,7 +215,9 @@
         <div class="loader-2"></div>
     </div>
 
+    <script src="static/js/translations.js"></script>
     <script src="static/js/base.js"></script>
     <script src="static/js/contact.js"></script>
+    <script src="static/js/load.js"></script>
 </body>
 </html>

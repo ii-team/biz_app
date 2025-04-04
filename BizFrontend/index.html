@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Title Tag -->
-    <title>Biz</title>
-    <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+    <title data-key="title">Biz</title>
+    <link rel="icon" type="image/x-icon" href="static/images/BIZ.png">
 
     <!-- CSS Link -->
     <link rel="stylesheet" href="static/css/base.css">
@@ -30,14 +30,14 @@
             <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
         </div>
         <div id="middle_header">
-            <a href="index.html" class="header_anchor_tags">Home</a>
-            <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+            <a href="index.html" class="header_anchor_tags" data-key="home">Home</a>
+            <a href="contact-us.html" class="header_anchor_tags" data-key="contact">Contact</a>
         </div>
         <div id="right_header">
             <a id="english_lang" href="javascript:void(0)" onclick="set_lang_to_english()"
-                class="header_anchor_tags">Lang:EN</a>
+                class="header_anchor_tags">EN</a>
             <a id="slovak_lang" href="javascript:void(0)" onclick="set_lang_to_slovak()"
-                class="header_anchor_tags">Lang:SK</a>
+                class="header_anchor_tags">SK</a>
         </div>
     </header>
 
@@ -52,12 +52,9 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeMobileHeader()">&times;</a>
-        <a href="index.html" class="header_anchor_tags">Home</a>
-        <a href="about.html" class="header_anchor_tags">About</a>
-        <a href="contact-us.html" class="header_anchor_tags">Contact</a>
+        <a href="index.html" class="header_anchor_tags" data-key="home">Home</a>
+        <a href="contact-us.html" class="header_anchor_tags" data-key="contact">Contact</a>
         <div id="links_mob">
-            <a href=""><img src="static/images/insta-light.png" alt=""></a>
-            <a href=""><img src="static/images/fb-light.png" alt=""></a>
             <a id="english_lang_mob" href="javascript:void(0)" onclick="set_lang_to_english()"
                 class="header_anchor_tags">EN</a>
             <a id="slovak_lang_mob" href="javascript:void(0)" onclick="set_lang_to_slovak()"
@@ -67,11 +64,16 @@
 
 
     <section id="cards">
-
+        <h2 data-key="our_services">Our Services</h2>
+        <div class="card-container">
+            <!-- Cards will be dynamically loaded -->
+        </div>
     </section>
 
+    <script src="static/js/translations.js"></script>
     <script src="static/js/base.js"></script>
     <script src="static/js/index.js"></script>
+    <script src="static/js/load.js"></script>
 </body>
 
 </html>

@@ -100,3 +100,8 @@
 .website,.linkedin{
     margin-bottom: 10px;
 }
+@media (max-width: 800px) {
+    #cards{
+        flex-direction: column;
+    }
+}
