@@ -30,7 +30,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['biz-backend.famsketch.eu']
 CORS_ALLOW_ALL_ORIGINS = True
-
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'https://*.famsketch.eu']
 
 # Application definition
 
