@@ -17,6 +17,7 @@ from rest_framework import filters, generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.core.mail import send_mail
+import requests
 
 
 @api_view (['GET'])
@@ -64,16 +65,28 @@ def create_business_card(request):
             org.linkedin = request.data.get('linkedin')
         if "description" in request.data:
             org.description = request.data.get('description')
-        
-        # Handle file uploads if present
+        if "short_description" in request.data:
+            org.short_description = request.data.get('short_description')
+        if "company_banner" in request.FILES:
+            org.company_banner = request.FILES['company_banner']
+        if "company_logo" in request.FILES:
+            org.company_logo = request.FILES['company_logo']
         if 'profile_pic' in request.FILES:
             org.profile_pic = request.FILES['profile_pic']
-        
-        if 'pdf' in request.FILES:
-            org.pdf = request.FILES['pdf']
-            
+
+        data = {
+            "user_id" : os.getenv("USER_ID"),
+            "api_password" : os.getenv("API_PASSWORD"),
+            "data" : request.data.get('description'),
+            "name" : request.data.get('org_name'),
+        }
+        r = requests.post('https://iielara.com/api/addData', data=data)
+        org.iiealra_index_id = r.json().get('index')
+                    
         org.save()
         org = OrganizationSerializer(org)
+        
+
         return Response({
             'success': True,
             'message': 'Organization created successfully',
