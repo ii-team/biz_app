@@ -16,7 +16,7 @@ const translations = {
         "phone_title": "Phone",
         "phone_value": "+421 908 322 546",
         "email_title": "Email",
-        "email_value": "info@iiteam.euu",
+        "email_value": "info@iiteam.eu",
         "submit_org": "Submit Your Organization",
         "org_name": "Organization Name",
         "org_name_tooltip": "Name of your Organization",
@@ -38,12 +38,21 @@ const translations = {
         "linkedin_placeholder": "https://linkedin.com/in/awesomeOrganization",
         "pdf_label": "PDF",
         "pdf_tooltip": "PDF file with information about your organization so people can chat and learn more about your organization.",
-        "profile_photo_label": "Card Photo",
+        "profile_photo_label": "Your Photo",
         "profile_photo_tooltip": "Profile photo of your organization. This will be used as a profile picture for your card.",
         "description_label": "Description",
         "description_tooltip": "Description of your organization. This will be used as a description for your card.",
         "description_placeholder": "My Organization is AWESOME! Here are some facts about us...",
-        "submit_button": "Submit"
+        "submit_button": "Submit",
+        "company_logo_label": "Company Logo",
+        "company_logo_tooltip": "Your organization's logo that will appear on the card.",
+        
+        "representative_photo_label": "Representative Photo",
+        "representative_photo_tooltip": "Photo of the responsible person or representative of your organization.",
+        
+        "short_description_label": "Short Description",
+        "short_description_tooltip": "A brief description (max 100 characters) that will appear on the front of your card.",
+        "short_description_placeholder": "One-line description of your organization"
     },
     "sk": {
         // Header elements
@@ -60,7 +69,7 @@ const translations = {
         "phone_title": "Telefón",
         "phone_value": "+421 908 322 546",
         "email_title": "Email",
-        "email_value": "info@iiteam.euu",
+        "email_value": "info@iiteam.eu",
         "submit_org": "Pridajte vašu organizáciu",
         "org_name": "Názov organizácie",
         "org_name_tooltip": "Názov vašej organizácie",
@@ -82,12 +91,21 @@ const translations = {
         "linkedin_placeholder": "https://linkedin.com/in/uzasnaOrganizacia",
         "pdf_label": "PDF",
         "pdf_tooltip": "PDF súbor s informáciami o vašej organizácii, aby sa ľudia mohli rozprávať a dozvedieť viac o vašej organizácii.",
-        "profile_photo_label": "Fotografia karty",
+        "profile_photo_label": "Vaša fotografia",
         "profile_photo_tooltip": "Profilová fotografia vašej organizácie. Bude použitá ako profilový obrázok pre vašu kartu.",
         "description_label": "Popis",
         "description_tooltip": "Popis vašej organizácie. Bude použitý ako popis pre vašu kartu.",
         "description_placeholder": "Moja organizácia je ÚŽASNÁ! Tu sú nejaké fakty o nás...",
-        "submit_button": "Odoslať"
+        "submit_button": "Odoslať",
+        "company_logo_label": "Logo spoločnosti",
+        "company_logo_tooltip": "Logo vašej organizácie, ktoré sa zobrazí na karte.",
+        
+        "representative_photo_label": "Fotografia zástupcu",
+        "representative_photo_tooltip": "Fotografia zodpovednej osoby alebo zástupcu vašej organizácie.",
+        
+        "short_description_label": "Krátky popis",
+        "short_description_tooltip": "Stručný popis (max. 100 znakov), ktorý sa zobrazí na prednej strane vašej karty.",
+        "short_description_placeholder": "Jednoriadkový popis vašej organizácie"
     }
 };
 

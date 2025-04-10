@@ -16,7 +16,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Saira&display=swap" rel="stylesheet">
+
 
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -73,7 +74,7 @@
                     </div>
                     <div class="contact_info">
                         <h3 data-key="email_title">Email</h3>
-                        <p data-key="email_value">info@iiteam.euu</p>
+                        <p data-key="email_value">info@iiteam.eu</p>
                     </div>
                 </div>
             </div>
@@ -172,9 +173,37 @@
                             </label>
                             <input type="file" id="pdf" name="pdf" class="file_field" accept=".pdf" required>
                         </div>
+                            <div class="input_field">
+                                <label for="card_description">
+                                    <span data-key="card_description_label">Short Description</span>
+                                    <div class="info-container">
+                                        <div class="info-tooltip" data-key="card_description_tooltip">
+                                            Short text that will appear on your organization card.
+                                        </div>
+                                        <span class="info"><img src="static/images/info.png" alt=""></span>
+                                    </div>
+                                </label>
+                                <input type="text" id="card_description" name="card_description" data-key="card_description_placeholder" placeholder="A quick insight into our mission..." required>
+                            </div>
+                        </div>
+                        <div class="two">
+                            <div class="input_field">
+                                <label for="company_logo">
+                                    <span data-key="company_logo_label">Company Logo</span>
+                                    <div class="info-container">
+                                        <div class="info-tooltip" data-key="company_logo_tooltip">
+                                            Upload your company logo (used on cards and in listings).
+                                        </div>
+                                        <span class="info"><img src="static/images/info.png" alt=""></span>
+                                    </div>
+                                </label>
+                                <input type="file" id="company_logo" class="file_field" name="company_logo" accept=".png,.jpeg,.jpg" required>
+                            </div>
+                        
+                        
                         <div class="input_field">
                             <label for="profile_photo">
-                                <span data-key="profile_photo_label">Card Photo</span>
+                                <span data-key="profile_photo_label">Your Photo</span>
                                 <div class="info-container">
                                     <div class="info-tooltip" data-key="profile_photo_tooltip">
                                         Profile photo of your organization. This will be used as a profile picture for your card.
@@ -199,6 +228,7 @@
                             <textarea name="description" id="description" data-key="description_placeholder" placeholder="My Organization is AWESOME! Here are some facts about us..." required></textarea>
                         </div>
                     </div>
+                
                     <div id="submit_button_outer">
                         <a href="javascript:void(0)" id="submit_button" class="button" onclick="submit_contact_form()">
                             <span data-key="submit_button">Submit</span>
@@ -206,6 +236,7 @@
                             <img id="dark_arrow" src="static/images/arrow-dark.png" alt="Arrow">
                         </a>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

@@ -40,6 +40,7 @@ function submit_contact_form() {
     formData.append("description", description);
     formData.append("pdf", pdf.files[0]);
     formData.append("profile_pic", profile_photo.files[0]);
+    
     var xhr = new XMLHttpRequest();
     xhr.open("POST", BACKEND_URL + "/createBusinessCard", true);
     xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
