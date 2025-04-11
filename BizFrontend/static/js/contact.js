@@ -8,12 +8,13 @@ function submit_contact_form() {
     var webpage = document.getElementById("webpage").value;
     var linkedin = document.getElementById("linkedin").value;
     var description = document.getElementById("description").value;
-    if (org_name == "" || responsible_person == "" || email == "" || phone == "" || webpage == "" || linkedin == "" || description == "") {
+    var short_desc = document.getElementById("short_desc").value;
+    if (org_name == "" || responsible_person == "" || email == "" || phone == "" || webpage == "" || linkedin == "" || description == "" || short_desc == "") {
         document.getElementById("loader").style.display = "none";
         alert("Please fill in all fields.");
         return false;
     }
-    var pdf = document.getElementById("pdf");
+    var pdf = document.getElementById("company_banner");
     if (pdf && pdf.files && pdf.files.length > 0) {
 
     } else {
@@ -29,6 +30,14 @@ function submit_contact_form() {
         alert("Please attach Profile Photo");
         return false; // No file selected
     }
+    var company_logo = document.getElementById("company_logo");
+    if (company_logo && company_logo.files && company_logo.files.length > 0) {
+
+    } else {
+        document.getElementById("loader").style.display = "none";
+        alert("Please attach Company Logo");
+        return false; // No file selected
+    }
 
     var formData = new FormData();
     formData.append("org_name", org_name);
@@ -38,8 +47,10 @@ function submit_contact_form() {
     formData.append("webpage", webpage);
     formData.append("linkedin", linkedin);
     formData.append("description", description);
-    formData.append("pdf", pdf.files[0]);
+    formData.append("company_banner", pdf.files[0]);
     formData.append("profile_pic", profile_photo.files[0]);
+    formData.append("company_logo", company_logo.files[0]);
+    formData.append("short_desc", short_desc);
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", BACKEND_URL + "/createBusinessCard", true);

@@ -37,7 +37,7 @@ def create_business_card(request):
         
         email = request.data.get('email')
         org_name = request.data.get('org_name')
-
+        
         if Organization.objects.filter(email=email).exists():
             return Response({
                 'success': False,
@@ -73,16 +73,17 @@ def create_business_card(request):
             org.company_logo = request.FILES['company_logo']
         if 'profile_pic' in request.FILES:
             org.profile_pic = request.FILES['profile_pic']
+        if "short_desc" in request.data:
+            org.short_description = request.data.get('short_desc')
 
         data = {
             "user_id" : os.getenv("USER_ID"),
             "api_password" : os.getenv("API_PASSWORD"),
             "data" : request.data.get('description'),
-            "name" : request.data.get('org_name'),
+            "name" : org_name,
         }
         r = requests.post('https://iielara.com/api/addData', data=data)
-        org.iiealra_index_id = r.json().get('index')
-                    
+        org.iiealra_index_id = r.json().get('index')       
         org.save()
         org = OrganizationSerializer(org)
         
@@ -93,6 +94,7 @@ def create_business_card(request):
             'org': org.data,
         }, status=status.HTTP_201_CREATED)
     except Exception as e:
+        print(e)
         # Return error response
         return Response({
             'success': False,
