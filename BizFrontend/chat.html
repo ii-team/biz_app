@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Title Tag -->
-    <title data-key="title">Biz</title>
-    <link rel="icon" type="image/x-icon" href="static/images/BIZ.png">
+    <title>Chat</title>
+    <link rel="icon" type="image/x-icon" href="static/images/logo.png">
 
     <!-- CSS Link -->
     <link rel="stylesheet" href="static/css/base.css">
-    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/css/chat.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,6 @@
 
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </head>
 
 <body>
@@ -30,10 +29,15 @@
             <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
         </div>
         <div id="middle_header">
-            <a href="index.html" class="header_anchor_tags" data-key="home">Home</a>
-            <a href="contact-us.html" class="header_anchor_tags" data-key="contact">Contact</a>
+            <a href="index.html" class="header_anchor_tags">Home</a>
+            <div class="right_border"></div>
+            <a href="about.html" class="header_anchor_tags">About</a>
+            <div class="right_border"></div>
+            <a href="contact-us.html" class="header_anchor_tags">Contact</a>
         </div>
         <div id="right_header">
+            <a href=""><img src="static/images/insta.png" alt=""></a>
+            <a href=""><img src="static/images/fb.png" alt=""></a>
             <a id="english_lang" href="javascript:void(0)" onclick="set_lang_to_english()"
                 class="header_anchor_tags">EN</a>
             <a id="slovak_lang" href="javascript:void(0)" onclick="set_lang_to_slovak()"
@@ -52,9 +56,12 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeMobileHeader()">&times;</a>
-        <a href="index.html" class="header_anchor_tags" data-key="home">Home</a>
-        <a href="contact-us.html" class="header_anchor_tags" data-key="contact">Contact</a>
+        <a href="index.html" class="header_anchor_tags">Home</a>
+        <a href="about.html" class="header_anchor_tags">About</a>
+        <a href="contact-us.html" class="header_anchor_tags">Contact</a>
         <div id="links_mob">
+            <a href=""><img src="static/images/insta-light.png" alt=""></a>
+            <a href=""><img src="static/images/fb-light.png" alt=""></a>
             <a id="english_lang_mob" href="javascript:void(0)" onclick="set_lang_to_english()"
                 class="header_anchor_tags">EN</a>
             <a id="slovak_lang_mob" href="javascript:void(0)" onclick="set_lang_to_slovak()"
@@ -63,26 +70,19 @@
     </div>
 
 
-    <section id="cards">
-        <h2 data-key="our_services">Our Services</h2>
-        <div class="card-container">
-            <!-- Cards will be dynamically loaded -->
-        </div>
-    </section>
+    
 
-    <script src="static/js/translations.js"></script>
     <script src="static/js/base.js"></script>
-    <script src="static/js/index.js"></script>
-    <script src="static/js/load.js"></script>
+    <script src="static/js/chat.js"></script>
 
-    <!-- Elara -->
-    <script type="text/javascript"  src="https://iielara.com/static/js/popup.js" data-user-id="xbm6ieg9u0xlb2c" data-index-id="wl5ejn5v3sdkk5i" data-theme="light"></script>
-    <script>
-        var div = document.createElement('div');
-        div.className = 'ai-message bot';
-        div.innerHTML = '<div class="username">Elara</div><div class="message" style="color: black;">Hi There! ✨ <br> Welcome to our services! 🌟 <br> We are excited to introduce you to Biz and share what it’s all about. Let us know what you would like to learn more about Biz💬🤝<br> Thank you for choosing us! 😊 <br><br></div>';
-        document.getElementById('ai-chat-messages').appendChild(div);
-    </script>
+     <!-- Elara
+     <script type="text/javascript"  src="https://iielara.com/static/js/popup.js" data-user-id="xbm6ieg9u0xlb2c" data-index-id="gyd5ubcfy13tbd8" data-theme="light"></script>
+     <script>
+         var div = document.createElement('div');
+         div.className = 'ai-message bot';
+         div.innerHTML = '<div class="username">Elara</div><div class="message" style="color: black;">Hi Elara User! ✨ <br> Welcome to our services! 🌟 <br> We are excited to introduce you to FamSketch and share what it’s all about. Let us know what you would like to learn more about FamSketch—our team is here to address all your queries. 💬🤝<br> Thank you for choosing us! 😊 <br><br></div>';
+         document.getElementById('ai-chat-messages').appendChild(div);
+     </script> -->
 </body>
 
 </html>
