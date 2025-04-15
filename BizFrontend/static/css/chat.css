@@ -1,0 +1,101 @@
+#right_chat{
+    width: 70%;
+    border: 1px solid black;
+    height: 100%;
+    
+}
+#chat{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 90px;
+    margin-top: 50px;
+    margin-right: 90px;
+    height: 85vh;
+}
+#left_chat {
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../static/images/banner.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#header_left_chat{
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+#company_logo{
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+}
+#company_name{
+    font-size: 30px;
+    color: white;
+}
+#company_info{
+    font-size: 18px;
+    color: white;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+#company_info p{
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+#company_info p>span{
+    font-weight: normal;
+    font-size: 17px;
+}
+
+#short_desc {
+    font-size: 18px;
+    color: white;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    max-height: 375px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 20; /* Adjust based on desired line count */
+    -webkit-box-orient: vertical;
+}
+
+#contact_info_heading{
+    font-size: 30px;
+    color: white;
+}
+#bottom_left_chat {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+#responsible_person_logo{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+#responsible_person{
+    font-size: 20px;
+    color: white;
+}
+#right_header{
+    background-color: rgb(219, 219, 219);
+    padding: 25px;
+}
+#iielara{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    
+}
