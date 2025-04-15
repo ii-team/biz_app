@@ -87,7 +87,7 @@
     font-size: 20px;
     color: white;
 }
-#right_header{
+#right_chat_header{
     background-color: rgb(219, 219, 219);
     padding: 25px;
 }
@@ -97,5 +97,5 @@
     font-size: 20px;
     font-weight: bold;
     margin-left: 20px;
-    
+
 }
