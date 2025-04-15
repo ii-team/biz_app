@@ -73,18 +73,13 @@
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam quia corporis in consequuntur ipsa
                     dignissimos, fugit eligendi totam, blanditiis aut esse sunt consequatur. Dolor eveniet repellat
                     fuga?
-                    Neque, eligendi praesentium. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-                    magnam.
-                    Praesentium placeat odit a, rerum cumque consequuntur quos molestiae numquam libero obcaecati nobis,
-                    tempore facilis consequatur quae iure ipsa delectus. Lorem ipsum dolor sit amet consectetur,
+                    Pacilis consequatur quae iure ipsa delectus. Lorem ipsum dolor sit amet consectetur,
                     adipisicing elit. Laboriosam omnis distinctio voluptate optio eligendi. Aliquam quaerat, aperiam
                     unde laudantium ea deleniti quas autem vel eligendi? Porro nihil veniam perspiciatis, molestias
                     autem nulla rerum molestiae odio a minima quae ducimus. Quas, vitae aperiam quibusdam, dicta quae
                     esse sint, molestiae harum repellendus dolores id eum odit. Quasi itaque aspernatur eaque excepturi
                     voluptatum! Ipsa sapiente consequuntur laboriosam alias voluptas voluptate ipsam, nulla nemo rerum
-                    minus. Distinctio tempora eius, molestias mollitia accusantium sequi, error hic explicabo ipsum
-                    vitae ducimus animi laborum velit facere veritatis quo. Ad enim saepe recusandae deleniti, obcaecati
-                    consequatur sint quia.
+                    minus. 
                 </div>
 
                 <h2 id="contact_info_heading">Contact Information</h2>
@@ -109,11 +104,54 @@
                 <a id="iielara" href="https://iielara.com">Chat with iiElara</a>
             </div>
             <div id="chatbox">
-                <div class="elara_message"></div>
-                <div class="user_message"></div>
+                <div class="message-container elara-container">
+                    <div class="avatar-wrapper">
+                        <img src="static/images/iiteam_logo.jpeg" class="avatar" alt="iiTeam">
+                        <div class="user-name">iiTeam</div>
+                    </div>
+                    <div class="message elara-message">Hi Ananya! How are you doing?</div>
+                </div>
+                
+                <div class="message-container user-container">
+                    <div class="avatar-wrapper">
+                        <img src="static/images/main.jpeg" class="avatar" alt="Ananya">
+                        <div class="user-name">Ananya</div>
+                    </div>
+                    <div class="message user-message">Hi iiTeam! I'm good. How are you?</div>
+                </div>
+                
+                <div class="message-container user-container">
+                    <div class="avatar-wrapper">
+                        <img src="static/images/main.jpeg" class="avatar" alt="Ananya">
+                        <div class="user-name">Ananya</div>
+                    </div>
+                    <div class="message user-message">How is work going on?</div>
+                </div>
+                
+                <div class="message-container elara-container">
+                    <div class="avatar-wrapper">
+                        <img src="static/images/iiteam_logo.jpeg" class="avatar" alt="iiTeam">
+                        <div class="user-name">iiTeam</div>
+                    </div>
+                    <div class="message elara-message">I'm good too. Work is going well.</div>
+                </div>
+                
+                <div class="message-container user-container">
+                    <div class="avatar-wrapper">
+                        <img src="static/images/main.jpeg" class="avatar" alt="Ananya">
+                        <div class="user-name">Ananya</div>
+                    </div>
+                    <div class="message user-message">That's good:)</div>
+                </div>
             </div>
             <div id="send_message_div">
-                <input type="text" id="message_input" placeholder="Type your message here..." />
+                <input type="text" id="message_input" placeholder="Write a message..." />
+                <button id="send_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
