@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const avatar = document.createElement('img');
         avatar.className = 'avatar';
         avatar.src = isUser ? 'static/images/default.jpeg' : document.getElementById("company_logo").src;
-        avatar.alt = isUser ? 'Lubos' : 'User';
+        avatar.alt = isUser ? 'User' : document.getElementById("company_name").innerHTML;
         
         const userName = document.createElement('div');
         userName.className = 'user-name';
         if (!isUser) {
             userName.classList.add('company-avatar');
         }
-        userName.textContent = isUser ? 'Lubos' : 'User';
+        userName.textContent = isUser ? 'User' : document.getElementById("company_name").innerHTML;
         
         const message = document.createElement('div');
         message.className = isUser ? 'message user-message' : 'message elara-message';
