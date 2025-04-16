@@ -51,7 +51,7 @@
     font-size: 17px;
 }
 
-#short_desc {
+#description {
     font-size: 18px;
     color: white;
     margin-top: 25px;
@@ -59,8 +59,11 @@
     max-height: 375px;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 20; /* Adjust based on desired line count */
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 20;
+    line-height: 1.05em; 
+    text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 #contact_info_heading{
@@ -98,7 +101,7 @@
 #right_chat {
     width: 70%;
     border: 1px solid #e0e0e0;
-    height: 105%;
+    height: 106%;
     display: flex;
     flex-direction: column;
     background-color: #f5f5f5;
@@ -134,11 +137,11 @@
     max-width: 80%;
 }
 
-.user-container {
+.elara-container {
     align-self: flex-start;
 }
 
-.elara-container {
+.user-container{
     align-self: flex-end;
     flex-direction: row-reverse;
 }
@@ -173,13 +176,13 @@
 
 .user-message {
     background-color: #e5e5e5;
-    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .elara-message {
     background-color: #2d2d2d;
     color: white;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 #send_message_div {
