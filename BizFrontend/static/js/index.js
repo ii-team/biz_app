@@ -50,7 +50,7 @@ function createBusinessCards(cardsData) {
             <div class="card">
                 <div class="card-front">
                     <div class="card-header">
-                        <img src="${card.profile_pic}" alt="${card.org_name}"  class="card-logo">
+                        <img src="${card.company_logo}" alt="${card.org_name}"  class="card-logo">
                     </div>
                     
                     <div class="card-description-front">
@@ -60,7 +60,7 @@ function createBusinessCards(cardsData) {
                     <div class="card-footer">
                         <div class="profile-wrapper">
                             <div class="profile-image-container">
-                                <img src="${card.company_logo}" alt="${card.org_name}" class="card-image">
+                                <img src="${card.profile_pic}" alt="${card.org_name}" class="card-image">
                             </div>
                             <div class="profile-details">
                                 <div class="card-name">${capitalizeWords(card.responsible_person)}</div>

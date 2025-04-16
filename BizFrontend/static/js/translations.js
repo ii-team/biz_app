@@ -52,7 +52,10 @@ const translations = {
         
         "short_description_label": "Short Description",
         "short_description_tooltip": "A brief description (max 100 characters) that will appear on the front of your card.",
-        "short_description_placeholder": "One-line description of your organization"
+        "short_description_placeholder": "One-line description of your organization",
+        "company_banner_label": "Company Banner",
+        "company_banner_tooltip": "Company Banner (used on cards and in listings).",
+        
     },
     "sk": {
         // Header elements
@@ -60,7 +63,9 @@ const translations = {
         "home": "Domov",
         "about": "O nás",
         "contact": "Kontakt",
-
+        "company_banner_label": "Banner spoločnosti",
+        "company_banner_tooltip": "Banner spoločnosti (používa sa na kartách a v zoznamoch).",
+        
         
         // Contact page elements
         "contact_us": "Kontaktujte nás",
