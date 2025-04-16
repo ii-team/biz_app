@@ -231,6 +231,7 @@ def chat(request):
             "index_id": index_id,
             "question": question,
         }
+        print("Data sent to API:", data)
         r = requests.post('https://iielara.com/api/chat', data=data)
         if r.status_code != 200:
             print(r.text)
