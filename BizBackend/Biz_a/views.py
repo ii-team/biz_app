@@ -208,41 +208,49 @@ def delete_business_card(request):
       
 @api_view(['POST'])
 def chat(request):
-    if "index_id" not in request.data or "question" not in request.data:
-        return Response({
-            'success': False,
-            'message': 'Index ID and question are required'
-        }, status=status.HTTP_400_BAD_REQUEST)
-    
-    index_id = request.data.get('index_id')
-    question = request.data.get('question')
-    if generic_question(question):
+    try:
+        if "index_id" not in request.data or "question" not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Index ID and question are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        index_id = request.data.get('index_id')
+        question = request.data.get('question')
+        if generic_question(question):
+            return Response({
+                'success': True,
+                'message': generic_question(question)
+            }, status=status.HTTP_200_OK)
+        
+        user_id = os.getenv("USER_ID")
+        api_password = os.getenv("API_PASSWORD")
+        data = {
+            "user_id": user_id,
+            "api_password": api_password,
+            "index_id": index_id,
+            "question": question,
+        }
+        r = requests.post('https://iielara.com/api/chat', data=data)
+        if r.status_code != 200:
+            print(r.text)
+            return Response({
+                'success': False,
+                'message': 'Error in fetching chat response'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        response_data = r.json()
+        response= response_data['data']
+        response = remove_html_codes(response)
         return Response({
             'success': True,
-            'message': generic_question(question)
+            'message': response,
         }, status=status.HTTP_200_OK)
-    
-    user_id = os.getenv("USER_ID")
-    api_password = os.getenv("API_PASSWORD")
-    data = {
-        "user_id": user_id,
-        "api_password": api_password,
-        "index_id": index_id,
-        "question": question,
-    }
-    r = requests.post('https://iielara.com/api/chat', data=data)
-    if r.status_code != 200:
+    except Exception as e:
         return Response({
             'success': False,
-            'message': 'Error in fetching chat response'
-        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    response_data = r.json()
-    response= response_data['data']
-    response = remove_html_codes(response)
-    return Response({
-        'success': True,
-        'message': response,
-    }, status=status.HTTP_200_OK)
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
 
 def remove_html_codes(text):
     clean = re.compile('<.*?>')
@@ -360,7 +368,7 @@ def generic_question(question):
             highest_ratio = ratio
             best_match = item
 
-    if highest_ratio >= 0.75:
+    if highest_ratio >= 0.9:
         return best_match["answer"]
     else:
         return None
