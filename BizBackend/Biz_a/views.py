@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 import requests
 import re
+from deep_translator import GoogleTranslator
 import difflib
 
 
@@ -209,18 +210,22 @@ def delete_business_card(request):
 @api_view(['POST'])
 def chat(request):
     try:
-        if "index_id" not in request.data or "question" not in request.data:
+        if "index_id" not in request.data or "question" not in request.data or "language" not in request.data:
             return Response({
                 'success': False,
-                'message': 'Index ID and question are required'
+                'message': 'Index ID,language and question are required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         index_id = request.data.get('index_id')
         question = request.data.get('question')
+        language = request.data.get('language')
         if generic_question(question):
+            answer = generic_question(question) 
+            if language == "sk":
+                answer = convert_to_slovak(answer)
             return Response({
                 'success': True,
-                'message': generic_question(question)
+                'message': answer
             }, status=status.HTTP_200_OK)
         
         user_id = os.getenv("USER_ID")
@@ -242,6 +247,9 @@ def chat(request):
         response_data = r.json()
         response= response_data['data']
         response = remove_html_codes(response)
+        if language == "sk":
+            response = convert_to_slovak(response)
+
         return Response({
             'success': True,
             'message': response,
@@ -374,3 +382,6 @@ def generic_question(question):
     else:
         return None
     
+def convert_to_slovak(text):
+    translated = GoogleTranslator(source='auto', target="sk").translate(text)
+    return translated

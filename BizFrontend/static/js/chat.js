@@ -56,7 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     "question": messageText,
-                    "index_id": index_id
+                    "index_id": index_id,
+                    "language" : getCookie("def_biz_lang")
                 })
             })
             .then(response => {
