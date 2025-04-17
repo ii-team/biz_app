@@ -54,7 +54,7 @@ function createBusinessCards(cardsData) {
                     </div>
                     
                     <div class="card-description-front">
-                        <p class="company-info">We are a rapidly developing IT company founded in 2020.</p>
+                        <p class="company-info">${card.short_description}</p>
                     </div>
                     
                     <div class="card-footer">
