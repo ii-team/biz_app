@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://biz-backend.famsketch.eu";
+const BACKEND_URL = "https://bizbackend.famsketch.eu";
 
 // Check if default lang is present; if not, set default lang as English
 var lang = getCookie("def_biz_lang");
