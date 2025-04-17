@@ -101,7 +101,33 @@ def create_business_card(request):
         org.iiealra_index_id = r.json().get('index')       
         org.save()
         org = OrganizationSerializer(org)
-        
+
+        data_of_company = f'''\n\n-----------------------\n 
+        Organization Name: {org_name} \n 
+        Email: {email} \n 
+        Responseible Person: {request.data.get('responsible_person')}  \n
+        Phone: {request.data.get('phone')} \n
+        Webpage: {request.data.get('webpage')} \n
+        LinkedIn: {request.data.get('linkedin')} \n
+        Short Description: {request.data.get('short_desc')} \n
+        -----------------------
+        '''
+
+        # base biz data update
+        data = {
+            "user_id" : os.getenv("USER_ID"),
+            "api_password" : os.getenv("API_PASSWORD"),
+            "index_id" : os.getenv("INDEX_ID"),
+            "data" : data_of_company,
+            "method" : "append"
+        }
+        r = requests.post('https://iielara.com/api/updateData', data=data)
+        if r.status_code != 200:
+            print(r.text)
+            return Response({
+                'success': False,
+                'message': 'Error in fetching chat response'
+            }, status=status.HTTP_400_BAD_REQUEST)        
 
         return Response({
             'success': True,
