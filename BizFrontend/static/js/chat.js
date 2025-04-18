@@ -111,6 +111,13 @@ function queryDatabase(id) {
             document.getElementById("inner_linkedin").innerHTML = org["linkedin"];
             document.getElementById("responsible_person_logo").src = org["profile_pic"];
             document.getElementById("responsible_person").innerHTML = org["responsible_person"];
+            const company_banner = org["company_banner"];
+            console.log(company_banner);
+            const leftChat = document.getElementById("left_chat");
+            leftChat.style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("${company_banner}")`;
+            leftChat.style.backgroundRepeat = "no-repeat";
+            leftChat.style.backgroundPosition = "center";
+            leftChat.style.backgroundSize = "cover";
             var company_avatars= document.getElementsByClassName("company-avatar");
             for (var i = 0; i < company_avatars.length; i++) {
                 company_avatars[i].src = org["company_logo"];
