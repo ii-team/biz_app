@@ -220,3 +220,290 @@
 #send_button:hover {
     color: #000;
 }
+
+
+/* Base Mobile Responsiveness */
+@media screen and (max-width: 1024px) {
+    #chat {
+      width: 95%;
+      margin: 30px auto;
+      flex-direction: column;
+      height: auto;
+    }
+    
+    #left_chat, #right_chat {
+      width: 100%;
+      border-radius: 10px 10px 0 0;
+    }
+    
+    #left_chat {
+      order: 2;
+      border-radius: 0 0 10px 10px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    #right_chat {
+      order: 1;
+      height: 70vh;
+    }
+  }
+  
+  /* Smaller tablets and large phones */
+  @media screen and (max-width: 768px) {
+    #chat {
+      width: 100%;
+      margin: 10px 0;
+      padding: 0 15px;
+      box-sizing: border-box;
+    }
+    
+    #left_chat_part_one, #left_chat_part_two {
+      padding: 15px 10px;
+    }
+    
+    #header_left_chat {
+      margin-bottom: 20px;
+    }
+    
+    #company_logo, #responsible_person_logo {
+      width: 50px;
+      height: 50px;
+    }
+    
+    #company_name {
+      font-size: 22px;
+    }
+    
+    #responsible_person {
+      font-size: 18px;
+    }
+    
+    #description {
+      font-size: 16px;
+      -webkit-line-clamp: 5;
+      max-height: 125px;
+    }
+    
+    #contact_info_heading {
+      font-size: 22px;
+    }
+    
+    #company_info {
+      font-size: 16px;
+    }
+    
+    #company_info p > span {
+      font-size: 15px;
+    }
+    
+    .message-container {
+      max-width: 95%;
+    }
+  }
+  
+  /* Mobile phones */
+  @media screen and (max-width: 480px) {
+    #chat {
+      padding: 0 10px;
+    }
+    
+    #left_chat {
+      max-height: 250px;
+    }
+    
+    #right_chat {
+      height: 65vh;
+    }
+    
+    #header_left_chat {
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    #company_logo {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    
+    #company_name {
+      font-size: 20px;
+    }
+    
+    #description {
+      font-size: 14px;
+      -webkit-line-clamp: 4;
+    }
+    
+    #contact_info_heading {
+      font-size: 20px;
+      text-align: center;
+    }
+    
+    #company_info {
+      font-size: 14px;
+    }
+    
+    #company_info p > span {
+      font-size: 13px;
+    }
+    
+    #bottom_left_chat {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    #responsible_person_logo {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    
+    #responsible_person {
+      font-size: 16px;
+    }
+    
+    #right_chat_header {
+      padding: 12px;
+    }
+    
+    #iielara {
+      font-size: 16px;
+      margin-left: 0;
+      text-align: center;
+      display: block;
+    }
+    
+    #chatbox {
+      padding: 15px 10px;
+    }
+    
+    .avatar {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .user-name {
+      font-size: 10px;
+    }
+    
+    .message {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    
+    #send_message_div {
+      padding: 10px;
+    }
+    
+    #message_input {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  /* Very small devices */
+  @media screen and (max-width: 320px) {
+    #left_chat {
+      max-height: 220px;
+    }
+    
+    #right_chat {
+      height: 60vh;
+    }
+    
+    #company_name {
+      font-size: 18px;
+    }
+    
+    #description {
+      font-size: 13px;
+      -webkit-line-clamp: 3;
+      margin: 15px 0;
+    }
+    
+    #contact_info_heading {
+      font-size: 18px;
+    }
+    
+    #company_info {
+      font-size: 13px;
+      margin: 15px 0;
+    }
+    
+    #company_info p > span {
+      font-size: 12px;
+    }
+    
+    #responsible_person {
+      font-size: 14px;
+    }
+    
+    .message {
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+    
+    .message-container {
+      max-width: 100%;
+    }
+  }
+  
+  /* Fixing existing mobile header issues */
+  @media screen and (max-width: 768px) {
+    #computer_header {
+      display: none;
+    }
+    
+    #mobile_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+    
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+    
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+    
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+    
+    #links_mob {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+  }
+  
+  @media screen and (min-width: 769px) {
+    #mobile_header {
+      display: none;
+    }
+  }

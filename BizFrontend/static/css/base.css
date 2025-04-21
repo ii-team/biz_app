@@ -74,7 +74,7 @@
 
 #right_header a>img {
     width: 40px;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 .container {
@@ -155,7 +155,7 @@
 
     #mobile_header {
         display: flex;
-        margin: 50px;
+        margin: 20px;
         justify-content: space-between;
     }
 
