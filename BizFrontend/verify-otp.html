@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP - Biz</title>
+    <link rel="icon" type="image/x-icon" href="static/images/BIZ.png">
+    
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="static/css/auth.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Logo -->
+            <div class="auth-logo">
+                <img src="static/images/logo.png" alt="Biz Logo">
+            </div>
+            
+            <!-- Title -->
+            <h1 class="auth-title">Verify Your Email</h1>
+            <p class="auth-subtitle">We've sent a 6-digit code to <strong id="user-email"></strong></p>
+            
+            <!-- Error/Success Messages -->
+            <div id="auth-message" class="auth-message" style="display: none;"></div>
+            
+            <!-- OTP Form -->
+            <form id="otp-form" class="auth-form">
+                <div class="otp-input-group">
+                    <input type="text" class="otp-input" maxlength="1" id="otp1" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" id="otp2" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" id="otp3" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" id="otp4" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" id="otp5" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" id="otp6" autocomplete="off">
+                </div>
+                
+                <button type="submit" class="btn-primary" id="verify-btn">
+                    <span class="btn-text">Verify OTP</span>
+                    <span class="btn-loader" style="display: none;">
+                        <i class="fas fa-circle-notch fa-spin"></i> Verifying...
+                    </span>
+                </button>
+            </form>
+            
+            <!-- Resend OTP -->
+            <div class="auth-footer">
+                <p>
+                    Didn't receive the code? 
+                    <a href="javascript:void(0)" id="resend-otp" class="resend-link">Resend OTP</a>
+                </p>
+                <p id="timer" class="timer"></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="static/js/config.js"></script>
+    <script src="static/js/auth.js"></script>
+    <script src="static/js/verify-otp.js"></script>
+</body>
+
+</html>

@@ -246,9 +246,17 @@
         <div class="loader-2"></div>
     </div>
 
+    <!-- IMPORTANT: Scripts must be loaded in this order -->
+    <!-- 1. Translations first -->
     <script src="static/js/translations.js"></script>
+    
+    <!-- 2. Base second -->
     <script src="static/js/base.js"></script>
+    
+    <!-- 3. Page-specific scripts -->
     <script src="static/js/contact.js"></script>
+    
+    <!-- 4. Load.js last -->
     <script src="static/js/load.js"></script>
 
      <!-- Elara -->
@@ -256,7 +264,7 @@
      <script>
          var div = document.createElement('div');
          div.className = 'ai-message bot';
-         div.innerHTML = '<div class="username">Elara</div><div class="message" style="color: black;">Hi There! ✨ <br> Welcome to our services! 🌟 <br> We are excited to introduce you to Biz and share what it’s all about. Let us know what you would like to learn more about Biz💬🤝<br> Thank you for choosing us! 😊 <br><br></div>';
+         div.innerHTML = '<div class="username">Elara</div><div class="message" style="color: black;">Hi There! ✨ <br> Welcome to our services! 🌟 <br> We are excited to introduce you to Biz and share what it\'s all about. Let us know what you would like to learn more about Biz💬🤝<br> Thank you for choosing us! 😊 <br><br></div>';
          document.getElementById('ai-chat-messages').appendChild(div);
      </script>
 </body>

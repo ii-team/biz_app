@@ -7,8 +7,8 @@ const translations = {
         "home": "Home",
         "about": "About",
         "contact": "Contact",
+        "our_services": "Our Services",
         
-    
         // Contact page elements
         "contact_us": "Contact Us",
         "address_title": "Address",
@@ -56,6 +56,11 @@ const translations = {
         "company_banner_label": "Company Banner",
         "company_banner_tooltip": "Company Banner (used on cards and in listings).",
         
+        // User menu
+        "logout": "Logout",
+        "login": "Login",
+        "signup": "Sign Up",
+        
     },
     "sk": {
         // Header elements
@@ -63,6 +68,7 @@ const translations = {
         "home": "Domov",
         "about": "O nás",
         "contact": "Kontakt",
+        "our_services": "Naše služby",
         "company_banner_label": "Banner spoločnosti",
         "company_banner_tooltip": "Banner spoločnosti (používa sa na kartách a v zoznamoch).",
         
@@ -94,8 +100,8 @@ const translations = {
         "linkedin_label": "Linkedin",
         "linkedin_tooltip": "Linkedin stránka vašej organizácie",
         "linkedin_placeholder": "https://linkedin.com/in/uzasnaOrganizacia",
-        "pdf_label": "Company Banner",
-        "pdf_tooltip": "Company Banner (used on cards and in listings).",
+        "pdf_label": "Banner spoločnosti",
+        "pdf_tooltip": "Banner spoločnosti (používa sa na kartách a v zoznamoch).",
         "profile_photo_label": "Vaša fotografia",
         "profile_photo_tooltip": "Profilová fotografia vašej organizácie. Bude použitá ako profilový obrázok pre vašu kartu.",
         "description_label": "Popis",
@@ -110,16 +116,23 @@ const translations = {
         
         "short_description_label": "Krátky popis",
         "short_description_tooltip": "Stručný popis (max. 100 znakov), ktorý sa zobrazí na prednej strane vašej karty.",
-        "short_description_placeholder": "Jednoriadkový popis vašej organizácie"
+        "short_description_placeholder": "Jednoriadkový popis vašej organizácie",
+        
+        // User menu
+        "logout": "Odhlásiť sa",
+        "login": "Prihlásiť sa",
+        "signup": "Registrovať sa",
     }
 };
 
 // Function to apply translations to all elements with data-key attribute
 function applyTranslations(lang) {
+    console.log("Applying translations for language:", lang);
+    
     // Update all elements with data-key attribute
     document.querySelectorAll("[data-key]").forEach((element) => {
         const key = element.getAttribute("data-key");
-        if (translations[lang][key]) {
+        if (translations[lang] && translations[lang][key]) {
             // Handle different types of elements
             if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
                 element.placeholder = translations[lang][key];
@@ -132,13 +145,23 @@ function applyTranslations(lang) {
     });
     
     // Update the page title
-    document.querySelector("title").textContent = translations[lang]["title"];
+    const titleElement = document.querySelector("title");
+    if (titleElement && translations[lang]["title"]) {
+        titleElement.textContent = translations[lang]["title"];
+    }
     
-    // Update header anchor tags with specific class
-    document.querySelectorAll(".header_anchor_tags").forEach((el) => {
-        const key = el.getAttribute("data-key") || el.textContent.toLowerCase();
+    // Update header anchor tags
+    document.querySelectorAll(".header_anchor_tags[data-key]").forEach((el) => {
+        const key = el.getAttribute("data-key");
         if (key && translations[lang][key]) {
             el.textContent = translations[lang][key];
         }
     });
+    
+    console.log("Translations applied successfully");
+}
+
+// Export for use in other scripts
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { translations, applyTranslations };
 }
