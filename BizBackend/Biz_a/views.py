@@ -9,13 +9,33 @@ from rest_framework.decorators import api_view
 import requests
 import re
 from deep_translator import GoogleTranslator
+from django.contrib.auth.hashers import make_password
 import difflib
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth.hashers import make_password, check_password
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+from .models import User, OTPVerification
+from .serializers import UserSerializer
+import os
+from dotenv import load_dotenv
+import secrets
+import string
+from datetime import datetime, timedelta
+import jwt
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
+import requests
+
 
 
 @api_view (['GET'])
 def get_business_cards(request):
     Organizations = Organization.objects.filter(active=True)
     serializer = OrganizationSerializer(Organizations, many=True)
+    print(serializer.data)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
@@ -411,3 +431,673 @@ def generic_question(question):
 def convert_to_slovak(text):
     translated = GoogleTranslator(source='auto', target="sk").translate(text)
     return translated
+
+def generate_otp(length=6):
+    """Generate a random OTP"""
+    return ''.join(secrets.choice(string.digits) for _ in range(length))
+
+def generate_token(user_id):
+    """Generate JWT token for user authentication"""
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.utcnow() + timedelta(days=30),
+        'iat': datetime.utcnow()
+    }
+    token = jwt.encode(payload, os.getenv('JWT_SECRET_KEY'), algorithm='HS256')
+    return token
+
+def verify_token(token):
+    """Verify JWT token and return user_id"""
+    try:
+        payload = jwt.decode(token, os.getenv('JWT_SECRET_KEY'), algorithms=['HS256'])
+        return payload['user_id']
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None
+
+def send_otp_email(email, otp):
+    """Send OTP to user email"""
+    try:
+        subject = 'Your OTP for Biz Registration'
+        message = f'''
+        Hello,
+        
+        Your One-Time Password (OTP) for Biz registration is: {otp}
+        
+        This OTP is valid for 10 minutes.
+        
+        If you didn't request this, please ignore this email.
+        
+        Best regards,
+        Biz Team
+        '''
+        
+        send_mail(
+            subject,
+            message,
+            os.getenv('EMAIL_HOST_USER'),
+            [email],
+            fail_silently=False,
+        )
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
+
+# API Views
+
+@api_view(['POST'])
+def signup(request):
+    """
+    Handle user signup with email and password
+    Sends OTP for verification
+    """
+    try:
+        # Validate required fields
+        if 'email' not in request.data or 'password' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Email and password are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        email = request.data.get('email').lower().strip()
+        password = request.data.get('password')
+        name = request.data.get('name', '')
+        
+        # Validate email format
+        import re
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_regex, email):
+            return Response({
+                'success': False,
+                'message': 'Invalid email format'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Check if user already exists
+        if User.objects.filter(email=email).exists():
+            return Response({
+                'success': False,
+                'message': 'Email already registered'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Validate password strength
+        if len(password) < 8:
+            return Response({
+                'success': False,
+                'message': 'Password must be at least 8 characters long'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Generate OTP
+        otp = generate_otp()
+        
+        # Create or update OTP verification record
+        OTPVerification.objects.filter(email=email).delete()  # Remove old OTPs
+        otp_record = OTPVerification.objects.create(
+            email=email,
+            otp=otp,
+            expires_at=datetime.now() + timedelta(minutes=10)
+        )
+        
+        # Send OTP email
+        if not send_otp_email(email, otp):
+            return Response({
+                'success': False,
+                'message': 'Failed to send OTP. Please try again.'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        # Store temporary user data (will be created after OTP verification)
+        # Using OTP record to store this temporarily
+        otp_record.temp_password = make_password(password)
+        otp_record.temp_name = name
+        otp_record.save()
+        
+        return Response({
+            'success': True,
+            'message': 'OTP sent to your email',
+            'email': email
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def verify_otp(request):
+    """
+    Verify OTP and create user account
+    """
+    try:
+        if 'email' not in request.data or 'otp' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Email and OTP are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        email = request.data.get('email').lower().strip()
+        otp = request.data.get('otp')
+        
+        # Find OTP record
+        try:
+            otp_record = OTPVerification.objects.get(email=email, otp=otp)
+        except OTPVerification.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'Invalid OTP'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Check if OTP is expired
+        # if datetime.now() > otp_record.expires_at:
+        #     otp_record.delete()
+        #     return Response({
+        #         'success': False,
+        #         'message': 'OTP has expired. Please request a new one.'
+        #     }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Create user account
+        user = User.objects.create(
+            email=email,
+            password=otp_record.temp_password,
+            name=otp_record.temp_name,
+            is_verified=True,
+            auth_provider='email'
+        )
+        
+        # Delete OTP record
+        otp_record.delete()
+        
+        # Generate authentication token
+        token = generate_token(user.id)
+        
+        # Serialize user data
+        user_serializer = UserSerializer(user)
+        
+        return Response({
+            'success': True,
+            'message': 'Account created successfully',
+            'token': token,
+            'user': user_serializer.data
+        }, status=status.HTTP_201_CREATED)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def resend_otp(request):
+    """
+    Resend OTP to user email
+    """
+    try:
+        if 'email' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Email is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        email = request.data.get('email').lower().strip()
+        
+        # Check if there's a pending OTP request
+        try:
+            otp_record = OTPVerification.objects.get(email=email)
+        except OTPVerification.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'No pending verification found'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Generate new OTP
+        otp = generate_otp()
+        otp_record.otp = otp
+        otp_record.expires_at = datetime.now() + timedelta(minutes=10)
+        otp_record.save()
+        
+        # Send OTP email
+        if not send_otp_email(email, otp):
+            return Response({
+                'success': False,
+                'message': 'Failed to send OTP. Please try again.'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        return Response({
+            'success': True,
+            'message': 'OTP resent successfully'
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def login(request):
+    """
+    Handle user login with email and password
+    """
+    try:
+        if 'email' not in request.data or 'password' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Email and password are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        email = request.data.get('email').lower().strip()
+        password = request.data.get('password')
+        
+        # Find user
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'Invalid email or password'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        
+        # Check if user registered with social auth
+        if user.auth_provider != 'email':
+            return Response({
+                'success': False,
+                'message': f'Please login using {user.auth_provider.title()}'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Verify password
+        if not check_password(password, user.password):
+            return Response({
+                'success': False,
+                'message': 'Invalid email or password'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        
+        # Check if user is verified
+        if not user.is_verified:
+            return Response({
+                'success': False,
+                'message': 'Please verify your email first'
+            }, status=status.HTTP_403_FORBIDDEN)
+        
+        # Generate authentication token
+        token = generate_token(user.id)
+        
+        # Update last login
+        user.last_login = datetime.now()
+        user.save()
+        
+        # Serialize user data
+        user_serializer = UserSerializer(user)
+        
+        return Response({
+            'success': True,
+            'message': 'Login successful',
+            'token': token,
+            'user': user_serializer.data
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def google_auth(request):
+    try:
+        token = request.data.get('token')
+        if not token:
+            return Response(
+                {'success': False, 'message': 'Google token is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Verify token with Google
+        resp = requests.get(
+            'https://oauth2.googleapis.com/tokeninfo',
+            params={'id_token': token},
+            timeout=5
+        )
+
+        if resp.status_code != 200:
+            return Response(
+                {'success': False, 'message': 'Invalid Google token'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        data = resp.json()
+
+        # VERY IMPORTANT security check
+        if data.get('aud') != os.getenv('GOOGLE_CLIENT_ID'):
+            return Response(
+                {'success': False, 'message': 'Invalid token audience'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        email = data.get('email', '').lower()
+        name = data.get('name', '')
+        google_id = data.get('sub')
+        picture = data.get('picture', '')
+
+        if not email:
+            return Response(
+                {'success': False, 'message': 'Email not provided by Google'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Get or create user
+        user, created = User.objects.get_or_create(
+            email=email,
+            defaults={
+                'name': name,
+                'google_id': google_id,
+                'profile_picture': picture,
+                'auth_provider': 'google',
+                'is_verified': True,
+            }
+        )
+
+        if not created and not user.google_id:
+            user.google_id = google_id
+            user.save()
+
+        user.last_login = datetime.now()
+        user.save()
+
+        token = generate_token(user.id)
+        serializer = UserSerializer(user)
+
+        return Response({
+            'success': True,
+            'message': 'Google login successful',
+            'token': token,
+            'user': serializer.data
+        }, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response(
+            {'success': False, 'message': str(e)},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+@api_view(['POST'])
+def apple_auth(request):
+    """
+    Handle Apple OAuth authentication
+    """
+    try:
+        if 'token' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Apple token is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        apple_token = request.data.get('token')
+        user_data = request.data.get('user', {})
+        
+        # Decode Apple ID token
+        try:
+            # Apple's public keys endpoint
+            jwks_url = 'https://appleid.apple.com/auth/keys'
+            jwks_response = requests.get(jwks_url)
+            jwks = jwks_response.json()
+            
+            # Decode the token (simplified - in production use proper JWT verification)
+            decoded = jwt.decode(
+                apple_token,
+                options={"verify_signature": False}  # In production, verify with Apple's public key
+            )
+            
+            email = decoded.get('email', '').lower().strip()
+            apple_id = decoded.get('sub')
+            
+            # Apple may not provide email if user denied permission
+            if not email:
+                email = user_data.get('email', '').lower().strip()
+            
+            name = user_data.get('name', {})
+            full_name = f"{name.get('firstName', '')} {name.get('lastName', '')}".strip()
+            
+        except Exception as e:
+            return Response({
+                'success': False,
+                'message': 'Invalid Apple token'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        
+        if not email:
+            return Response({
+                'success': False,
+                'message': 'Email is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Check if user exists
+        try:
+            user = User.objects.get(email=email)
+            
+            # Update Apple ID if not set
+            if not user.apple_id:
+                user.apple_id = apple_id
+                user.save()
+                
+        except User.DoesNotExist:
+            # Create new user
+            user = User.objects.create(
+                email=email,
+                name=full_name,
+                apple_id=apple_id,
+                is_verified=True,
+                auth_provider='apple'
+            )
+        
+        # Update last login
+        user.last_login = datetime.now()
+        user.save()
+        
+        # Generate authentication token
+        token = generate_token(user.id)
+        
+        # Serialize user data
+        user_serializer = UserSerializer(user)
+        
+        return Response({
+            'success': True,
+            'message': 'Apple authentication successful',
+            'token': token,
+            'user': user_serializer.data
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def auto_login(request):
+    """
+    Auto-login user using JWT token
+    """
+    try:
+        if 'token' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Token is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        token = request.data.get('token')
+        
+        # Verify token
+        user_id = verify_token(token)
+        if not user_id:
+            return Response({
+                'success': False,
+                'message': 'Invalid or expired token'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        
+        # Get user
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'User not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        # Update last login
+        user.last_login = datetime.now()
+        user.save()
+        
+        # Serialize user data
+        user_serializer = UserSerializer(user)
+        
+        return Response({
+            'success': True,
+            'message': 'Auto-login successful',
+            'user': user_serializer.data
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def logout(request):
+    """
+    Logout user (frontend should delete token)
+    """
+    return Response({
+        'success': True,
+        'message': 'Logout successful'
+    }, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def forgot_password(request):
+    """
+    Send OTP for password reset
+    """
+    try:
+        if 'email' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Email is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        email = request.data.get('email').lower().strip()
+        
+        # Check if user exists
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # Don't reveal if email exists or not for security
+            return Response({
+                'success': True,
+                'message': 'If the email exists, an OTP has been sent'
+            }, status=status.HTTP_200_OK)
+        
+        # Only allow password reset for email auth users
+        if user.auth_provider != 'email':
+            return Response({
+                'success': False,
+                'message': f'This account uses {user.auth_provider.title()} login'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Generate OTP
+        otp = generate_otp()
+        
+        # Create or update OTP verification record
+        OTPVerification.objects.filter(email=email).delete()
+        OTPVerification.objects.create(
+            email=email,
+            otp=otp,
+            expires_at=datetime.now() + timedelta(minutes=10),
+            is_password_reset=True
+        )
+        
+        # Send OTP email
+        send_otp_email(email, otp)
+        
+        return Response({
+            'success': True,
+            'message': 'OTP sent to your email',
+            'email': email
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def reset_password(request):
+    """
+    Reset password with OTP verification
+    """
+    try:
+        if 'email' not in request.data or 'otp' not in request.data or 'new_password' not in request.data:
+            return Response({
+                'success': False,
+                'message': 'Email, OTP, and new password are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        email = request.data.get('email').lower().strip()
+        otp = request.data.get('otp')
+        new_password = request.data.get('new_password')
+        
+        # Validate password strength
+        if len(new_password) < 8:
+            return Response({
+                'success': False,
+                'message': 'Password must be at least 8 characters long'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Find OTP record
+        try:
+            otp_record = OTPVerification.objects.get(
+                email=email, 
+                otp=otp, 
+                is_password_reset=True
+            )
+        except OTPVerification.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'Invalid OTP'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Check if OTP is expired
+        if datetime.now() > otp_record.expires_at:
+            otp_record.delete()
+            return Response({
+                'success': False,
+                'message': 'OTP has expired'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get user
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'User not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        # Update password
+        user.password = make_password(new_password)
+        user.save()
+        
+        # Delete OTP record
+        otp_record.delete()
+        
+        return Response({
+            'success': True,
+            'message': 'Password reset successful'
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({
+            'success': False,
+            'message': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)

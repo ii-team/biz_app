@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from .models import Organization
+from .models import Organization, User
 import os 
 
 class OrganizationSerializer(serializers.ModelSerializer): 
@@ -25,6 +25,35 @@ class OrganizationSerializer(serializers.ModelSerializer):
         if obj.company_logo and hasattr(obj.company_logo, 'url'):
             return os.getenv('BASE_URL') + obj.company_logo.url
         return None
+
+class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer for User model
+    """
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'email',
+            'name',
+            'profile_picture',
+            'auth_provider',
+            'is_verified',
+            'created_at',
+            'last_login'
+        ]
+        read_only_fields = ['id', 'created_at', 'last_login']
     
-    
-    
+    def to_representation(self, instance):
+        """
+        Customize the output representation
+        """
+        data = super().to_representation(instance)
+        
+        # Format dates
+        if data.get('created_at'):
+            data['created_at'] = instance.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        if data.get('last_login'):
+            data['last_login'] = instance.last_login.strftime('%Y-%m-%d %H:%M:%S')
+        
+        return data
