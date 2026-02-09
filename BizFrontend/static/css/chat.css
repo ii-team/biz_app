@@ -1,147 +1,272 @@
+/* ============================================
+   PROFESSIONAL CHAT INTERFACE
+   Modern, clean design with smooth interactions
+   ============================================ */
 
-#chat{
+#chat {
     width: 90%;
-    height: 100%;
+    max-width: 1400px;
+    height: calc(100vh - 120px);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 90px;
-    margin-top: 50px;
-    margin-right: 90px;
-    height: 85vh;
+    margin: 40px auto;
+    gap: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    background: #ffffff;
 }
+
+/* ============================================
+   LEFT SIDEBAR - Company Info
+   ============================================ */
+
 #left_chat {
-    width: 30%;
+    width: 35%;
+    min-width: 320px;
     height: 100%;
-    /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../static/images/banner.png"); */
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    padding: 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-y: auto;
+    position: relative;
 }
-#header_left_chat{
+
+/* Custom scrollbar for left chat */
+#left_chat::-webkit-scrollbar {
+    width: 8px;
+}
+
+#left_chat::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#left_chat::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+#left_chat::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Top Section */
+#left_chat_part_one {
+    padding: 35px 30px;
+}
+
+#header_left_chat {
     display: flex;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
-#company_logo{
-    width: 70px;
-    height: 70px;
+
+#company_logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
     margin-right: 20px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
-#company_name{
-    font-size: 30px;
-    color: white;
-}
-#company_info{
-    font-size: 18px;
-    color: white;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-#company_info p{
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-#company_info p>span{
-    font-weight: normal;
-    font-size: 17px;
+
+#company_name {
+    font-size: 28px;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
 }
 
 #description {
-    font-size: 18px;
-    color: white;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    max-height: 375px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 20;
-    line-height: 1.05em; 
-    text-overflow: ellipsis;
-    cursor: pointer;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.7;
+    margin-bottom: 30px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 10px;
 }
 
-#contact_info_heading{
-    font-size: 30px;
-    color: white;
+#description::-webkit-scrollbar {
+    width: 6px;
 }
+
+#description::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+#description::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+#contact_info_heading {
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#company_info {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+}
+
+#company_info p {
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+#company_info p::before {
+    content: '•';
+    color: #ffd700;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+#company_info p > span {
+    font-weight: 400;
+    font-size: 14px;
+    word-break: break-word;
+    flex: 1;
+}
+
+/* Bottom Section - Responsible Person */
+#left_chat_part_two {
+    padding: 25px 30px;
+    background: rgba(0, 0, 0, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
 #bottom_left_chat {
     display: flex;
-    justify-content: left;
     align-items: center;
 }
-#responsible_person_logo{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin-right: 20px;
-}
-#responsible_person{
-    font-size: 20px;
-    color: white;
-}
-#right_chat_header{
-    background-color: rgb(219, 219, 219);
-    padding: 25px;
-}
-#iielara{
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 20px;
 
+#responsible_person_logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-/* Right Chat Area CSS */
+
+#responsible_person {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* ============================================
+   RIGHT SECTION - Chat Interface
+   ============================================ */
+
 #right_chat {
-    width: 70%;
-    border: 1px solid #e0e0e0;
-    height: 106%;
+    width: 65%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #f5f5f5;
-    border-radius: 0 10px 10px 0;
-    overflow: hidden;
+    background: #fafbfc;
 }
 
 #right_chat_header {
-    background-color: #f0f0f0;
-    padding: 15px 25px;
-    border-bottom: 1px solid #e0e0e0;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-bottom: 2px solid #e8eef3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #iielara {
     text-decoration: none;
-    color: #333;
-    font-size: 18px;
-    font-weight: bold;
+    color: #1a1a2e;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+#iielara:hover {
+    color: #667eea;
+}
+
+#iielara::before {
+    content: '💬';
+    font-size: 24px;
+}
+
+/* Chatbox */
 #chatbox {
     flex: 1;
-    padding: 20px;
+    padding: 30px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
 }
 
+/* Custom scrollbar for chatbox */
+#chatbox::-webkit-scrollbar {
+    width: 10px;
+}
+
+#chatbox::-webkit-scrollbar-track {
+    background: #f0f3f7;
+    border-radius: 5px;
+}
+
+#chatbox::-webkit-scrollbar-thumb {
+    background: #c5cdd8;
+    border-radius: 5px;
+}
+
+#chatbox::-webkit-scrollbar-thumb:hover {
+    background: #a8b4c4;
+}
+
+/* Message Containers */
 .message-container {
     display: flex;
     align-items: flex-start;
-    max-width: 80%;
+    max-width: 75%;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .elara-container {
     align-self: flex-start;
 }
 
-.user-container{
+.user-container {
     align-self: flex-end;
     flex-direction: row-reverse;
 }
@@ -150,360 +275,400 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 10px;
+    margin: 0 12px;
+    flex-shrink: 0;
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #e8eef3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.company-avatar {
+    border-color: #667eea;
 }
 
 .user-name {
-    font-size: 12px;
-    margin-top: 5px;
-    color: #666;
+    font-size: 11px;
+    margin-top: 6px;
+    color: #6b7785;
+    font-weight: 600;
+    text-align: center;
 }
 
+.company-name-avatar {
+    color: #667eea;
+}
+
+/* Message Bubbles */
 .message {
-    padding: 12px 15px;
+    padding: 14px 18px;
     border-radius: 18px;
     font-size: 15px;
+    line-height: 1.5;
     max-width: 100%;
     word-wrap: break-word;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
 .user-message {
-    background-color: #e5e5e5;
-    border-top-right-radius: 5px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
 }
 
 .elara-message {
-    background-color: #2d2d2d;
-    color: white;
-    border-top-left-radius: 5px;
+    background: #ffffff;
+    color: #1a1a2e;
+    border: 1px solid #e8eef3;
+    border-bottom-left-radius: 4px;
 }
 
+/* Message Input Section */
 #send_message_div {
     display: flex;
-    padding: 15px;
-    background-color: white;
-    border-top: 1px solid #e0e0e0;
+    padding: 25px 30px;
+    background: #ffffff;
+    border-top: 2px solid #e8eef3;
+    gap: 15px;
+    align-items: center;
 }
 
 #message_input {
     flex: 1;
-    padding: 12px 15px;
-    border: none;
-    border-radius: 20px;
-    background-color: #f0f0f0;
+    padding: 14px 20px;
+    border: 2px solid #e8eef3;
+    border-radius: 25px;
     font-size: 15px;
     outline: none;
+    background: #fafbfc;
+    transition: all 0.3s ease;
+    font-family: 'Saira', sans-serif;
+}
+
+#message_input:focus {
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 #message_input::placeholder {
-    color: #888;
+    color: #a8b4c4;
 }
 
 #send_button {
-    background-color: transparent;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
     cursor: pointer;
-    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #555;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 #send_button:hover {
-    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
 
+#send_button:active {
+    transform: scale(0.95);
+}
 
-/* Base Mobile Responsiveness */
+#send_button svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablets */
 @media screen and (max-width: 1024px) {
     #chat {
-      width: 95%;
-      margin: 30px auto;
-      flex-direction: column;
-      height: auto;
+        width: 95%;
+        margin: 30px auto;
+        flex-direction: column;
+        height: auto;
+        max-height: calc(100vh - 100px);
     }
-    
-    #left_chat, #right_chat {
-      width: 100%;
-      border-radius: 10px 10px 0 0;
-    }
-    
+
     #left_chat {
-      order: 2;
-      border-radius: 0 0 10px 10px;
-      max-height: 300px;
-      overflow-y: auto;
+        width: 100%;
+        min-width: auto;
+        max-height: 350px;
+        order: 2;
+        border-radius: 0 0 16px 16px;
     }
-    
+
     #right_chat {
-      order: 1;
-      height: 70vh;
+        width: 100%;
+        order: 1;
+        height: 500px;
+        border-radius: 16px 16px 0 0;
     }
-  }
-  
-  /* Smaller tablets and large phones */
-  @media screen and (max-width: 768px) {
+
+    #left_chat_part_one {
+        padding: 25px 20px;
+    }
+
+    #left_chat_part_two {
+        padding: 20px;
+    }
+}
+
+/* Mobile Landscape / Small Tablets */
+@media screen and (max-width: 768px) {
     #chat {
-      width: 100%;
-      margin: 10px 0;
-      padding: 0 15px;
-      box-sizing: border-box;
+        width: 100%;
+        margin: 20px auto;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     }
-    
-    #left_chat_part_one, #left_chat_part_two {
-      padding: 15px 10px;
-    }
-    
-    #header_left_chat {
-      margin-bottom: 20px;
-    }
-    
-    #company_logo, #responsible_person_logo {
-      width: 50px;
-      height: 50px;
-    }
-    
-    #company_name {
-      font-size: 22px;
-    }
-    
-    #responsible_person {
-      font-size: 18px;
-    }
-    
-    #description {
-      font-size: 16px;
-      -webkit-line-clamp: 5;
-      max-height: 125px;
-    }
-    
-    #contact_info_heading {
-      font-size: 22px;
-    }
-    
-    #company_info {
-      font-size: 16px;
-    }
-    
-    #company_info p > span {
-      font-size: 15px;
-    }
-    
-    .message-container {
-      max-width: 95%;
-    }
-  }
-  
-  /* Mobile phones */
-  @media screen and (max-width: 480px) {
-    #chat {
-      padding: 0 10px;
-    }
-    
+
     #left_chat {
-      max-height: 250px;
+        max-height: 300px;
     }
-    
+
     #right_chat {
-      height: 65vh;
+        height: 450px;
     }
-    
+
     #header_left_chat {
-      flex-direction: column;
-      text-align: center;
-      margin-bottom: 15px;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
     }
-    
+
     #company_logo {
-      margin-right: 0;
-      margin-bottom: 10px;
+        width: 65px;
+        height: 65px;
+        border-radius: 12px;
     }
-    
+
     #company_name {
-      font-size: 20px;
+        font-size: 22px;
     }
-    
+
     #description {
-      font-size: 14px;
-      -webkit-line-clamp: 4;
+        font-size: 15px;
+        max-height: 150px;
     }
-    
+
     #contact_info_heading {
-      font-size: 20px;
-      text-align: center;
+        font-size: 18px;
     }
-    
+
     #company_info {
-      font-size: 14px;
+        font-size: 14px;
     }
-    
+
     #company_info p > span {
-      font-size: 13px;
+        font-size: 13px;
     }
-    
-    #bottom_left_chat {
-      flex-direction: column;
-      text-align: center;
-    }
-    
+
     #responsible_person_logo {
-      margin-right: 0;
-      margin-bottom: 10px;
+        width: 50px;
+        height: 50px;
     }
-    
+
     #responsible_person {
-      font-size: 16px;
+        font-size: 16px;
     }
-    
-    #right_chat_header {
-      padding: 12px;
-    }
-    
-    #iielara {
-      font-size: 16px;
-      margin-left: 0;
-      text-align: center;
-      display: block;
-    }
-    
+
     #chatbox {
-      padding: 15px 10px;
+        padding: 20px;
+        gap: 15px;
     }
-    
-    .avatar {
-      width: 30px;
-      height: 30px;
-    }
-    
-    .user-name {
-      font-size: 10px;
-    }
-    
-    .message {
-      padding: 10px 12px;
-      font-size: 14px;
-    }
-    
-    #send_message_div {
-      padding: 10px;
-    }
-    
-    #message_input {
-      padding: 10px;
-      font-size: 14px;
-    }
-  }
-  
-  /* Very small devices */
-  @media screen and (max-width: 320px) {
-    #left_chat {
-      max-height: 220px;
-    }
-    
-    #right_chat {
-      height: 60vh;
-    }
-    
-    #company_name {
-      font-size: 18px;
-    }
-    
-    #description {
-      font-size: 13px;
-      -webkit-line-clamp: 3;
-      margin: 15px 0;
-    }
-    
-    #contact_info_heading {
-      font-size: 18px;
-    }
-    
-    #company_info {
-      font-size: 13px;
-      margin: 15px 0;
-    }
-    
-    #company_info p > span {
-      font-size: 12px;
-    }
-    
-    #responsible_person {
-      font-size: 14px;
-    }
-    
-    .message {
-      font-size: 13px;
-      padding: 8px 10px;
-    }
-    
+
     .message-container {
-      max-width: 100%;
+        max-width: 85%;
     }
-  }
-  
-  /* Fixing existing mobile header issues */
-  @media screen and (max-width: 768px) {
-    #computer_header {
-      display: none;
+
+    #right_chat_header {
+        padding: 20px;
     }
-    
-    #mobile_header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+
+    #iielara {
+        font-size: 18px;
     }
-    
-    .sidenav {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
+}
+
+/* Mobile Portrait */
+@media screen and (max-width: 480px) {
+    #chat {
+        margin: 15px auto;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
     }
-    
-    .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
+
+    #left_chat {
+        max-height: 280px;
+        border-radius: 0;
     }
-    
-    .sidenav a:hover {
-      color: #f1f1f1;
+
+    #right_chat {
+        height: 420px;
+        border-radius: 0;
     }
-    
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
+
+    #header_left_chat {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        margin-bottom: 20px;
     }
-    
-    #links_mob {
-      display: flex;
-      flex-direction: column;
-      margin-top: 20px;
+
+    #company_logo {
+        margin-right: 0;
+        margin-bottom: 12px;
+        width: 60px;
+        height: 60px;
     }
-  }
-  
-  @media screen and (min-width: 769px) {
-    #mobile_header {
-      display: none;
+
+    #company_name {
+        font-size: 20px;
     }
-  }
+
+    #description {
+        font-size: 14px;
+        text-align: left;
+        max-height: 120px;
+    }
+
+    #contact_info_heading {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    #company_info {
+        font-size: 13px;
+    }
+
+    #company_info p > span {
+        font-size: 12px;
+    }
+
+    #bottom_left_chat {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    #responsible_person_logo {
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 45px;
+        height: 45px;
+    }
+
+    #responsible_person {
+        font-size: 15px;
+    }
+
+    #right_chat_header {
+        padding: 15px;
+    }
+
+    #iielara {
+        font-size: 16px;
+    }
+
+    #chatbox {
+        padding: 15px;
+    }
+
+    .message-container {
+        max-width: 90%;
+    }
+
+    .avatar {
+        width: 38px;
+        height: 38px;
+    }
+
+    .avatar-wrapper {
+        margin: 0 8px;
+    }
+
+    .user-name {
+        font-size: 10px;
+    }
+
+    .message {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    #send_message_div {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    #message_input {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    #send_button {
+        width: 45px;
+        height: 45px;
+    }
+
+    #send_button svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Very Small Devices */
+@media screen and (max-width: 360px) {
+    #left_chat {
+        max-height: 250px;
+    }
+
+    #right_chat {
+        height: 380px;
+    }
+
+    #left_chat_part_one {
+        padding: 20px 15px;
+    }
+
+    #company_name {
+        font-size: 18px;
+    }
+
+    #description {
+        font-size: 13px;
+        max-height: 100px;
+    }
+
+    #contact_info_heading {
+        font-size: 15px;
+    }
+
+    #company_info {
+        font-size: 12px;
+    }
+
+    .message {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    #message_input {
+        font-size: 13px;
+    }
+}

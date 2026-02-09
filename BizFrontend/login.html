@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +13,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     
     <!-- Font Awesome for Icons -->
@@ -21,11 +21,7 @@
     
     <!-- Google Sign-In -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
-    <!-- Apple Sign-In -->
-    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
 </head>
-
 <body>
     <div class="auth-container">
         <div class="auth-card">
@@ -95,6 +91,7 @@
             
             <!-- Social Login Buttons -->
             <div class="social-auth">
+                <!-- Google Sign-In Initialization -->
                 <div id="g_id_onload"
                      data-client_id="891480935469-3s8ndgrc86r0l548vglsibnstm8uocp1.apps.googleusercontent.com"
                      data-callback="handleGoogleSignIn"
@@ -105,11 +102,6 @@
                     <i class="fab fa-google"></i>
                     Continue with Google
                 </button>
-                
-                <!-- <button type="button" class="btn-social btn-apple" id="apple-signin-btn">
-                    <i class="fab fa-apple"></i>
-                    Continue with Apple
-                </button> -->
             </div>
             
             <!-- Sign Up Link -->
@@ -124,5 +116,4 @@
     <script src="static/js/auth.js"></script>
     <script src="static/js/login.js"></script>
 </body>
-
 </html>

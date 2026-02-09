@@ -11,6 +11,7 @@
 
     <!-- CSS Link -->
     <link rel="stylesheet" href="static/css/base.css">    
+    <link rel="stylesheet" href="static/css/index.css"> 
     <link rel="stylesheet" href="static/css/contact.css">    
 
     <!-- Google Fonts -->
@@ -25,16 +26,45 @@
 </head>
 <body>
     <header id="computer_header">
+        <!-- Left: Logo -->
         <div id="left_header">
-            <a href="index.html"><img src="static/images/logo.png" alt="Logo" class="logo_img"></a>
+            <a href="index.html">
+                <img src="static/images/logo.png" alt="Biz Logo" class="logo_img">
+            </a>
         </div>
+
+        <!-- Center: Navigation -->
         <div id="middle_header">
             <a href="index.html" class="header_anchor_tags" data-key="home">Home</a>
             <a href="contact-us.html" class="header_anchor_tags" data-key="contact">Contact</a>
+            <a href="javascript:void(0)" class="header_anchor_tags" data-key="logout" onclick="handleLogout()">Logout</a>
         </div>
+
+        <!-- Right: Language Dropdown & User Profile -->
         <div id="right_header">
-            <a id="english_lang" href="javascript:void(0)" onclick="set_lang_to_english()" class="header_anchor_tags">EN</a>
-            <a id="slovak_lang" href="javascript:void(0)" onclick="set_lang_to_slovak()" class="header_anchor_tags">SK</a>
+            <!-- Language Dropdown -->
+            <div class="language-dropdown" id="languageDropdown">
+                <div class="language-trigger" onclick="toggleLanguageDropdown()">
+                    <svg class="globe-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                        </path>
+                    </svg>
+                    <span id="currentLang">EN</span>
+                    <div class="arrow-down"></div>
+                </div>
+                <div class="language-menu">
+                    <div class="language-option active" data-lang="en" onclick="selectLanguage('en')">
+                        🇬🇧 English
+                    </div>
+                    <div class="language-option" data-lang="sk" onclick="selectLanguage('sk')">
+                        🇸🇰 Slovak
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -267,5 +297,156 @@
          div.innerHTML = '<div class="username">Elara</div><div class="message" style="color: black;">Hi There! ✨ <br> Welcome to our services! 🌟 <br> We are excited to introduce you to Biz and share what it\'s all about. Let us know what you would like to learn more about Biz💬🤝<br> Thank you for choosing us! 😊 <br><br></div>';
          document.getElementById('ai-chat-messages').appendChild(div);
      </script>
+     <script>
+        // Language Dropdown Toggle
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            const userDropdown = document.getElementById('userDropdown');
+
+            dropdown.classList.toggle('active');
+            if (userDropdown) {
+                userDropdown.classList.remove('active');
+            }
+        }
+
+        // User Dropdown Toggle
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            const langDropdown = document.getElementById('languageDropdown');
+
+            dropdown.classList.toggle('active');
+            langDropdown.classList.remove('active');
+        }
+
+        // Select Language - FIXED VERSION
+        function selectLanguage(lang) {
+            console.log('Switching to language:', lang);
+            
+            const currentLang = document.getElementById('currentLang');
+            const options = document.querySelectorAll('.language-option');
+
+            // Update current language display
+            if (currentLang) {
+                currentLang.textContent = lang.toUpperCase();
+            }
+
+            // Update active state
+            options.forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.lang === lang) {
+                    option.classList.add('active');
+                }
+            });
+
+            // Close dropdown
+            const langDropdown = document.getElementById('languageDropdown');
+            if (langDropdown) {
+                langDropdown.classList.remove('active');
+            }
+
+            // Close mobile menu
+            closeMobileHeader();
+
+            // Apply translations directly
+            if (typeof applyTranslations === 'function') {
+                applyTranslations(lang);
+                // Store the selected language in localStorage
+                localStorage.setItem('selectedLanguage', lang);
+                console.log('Translations applied for:', lang);
+            } else {
+                console.error('applyTranslations function not found');
+            }
+
+            // Call your existing language functions if they exist
+            if (lang === 'en' && typeof set_lang_to_english === 'function') {
+                set_lang_to_english();
+            } else if (lang === 'sk' && typeof set_lang_to_slovak === 'function') {
+                set_lang_to_slovak();
+            }
+        }
+
+        // Mobile Header Functions
+        function openMobileHeader() {
+            document.getElementById("mySidenav").style.width = "280px";
+        }
+
+        function closeMobileHeader() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function (event) {
+            const langDropdown = document.getElementById('languageDropdown');
+            const userDropdown = document.getElementById('userDropdown');
+
+            if (langDropdown && !langDropdown.contains(event.target)) {
+                langDropdown.classList.remove('active');
+            }
+
+            if (userDropdown && !userDropdown.contains(event.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async function () {
+            console.log('Page loaded, initializing...');
+            
+            // Check authentication
+            if (typeof checkAuthentication === 'function') {
+                await checkAuthentication();
+            }
+
+            // Get saved language or default to English
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+            console.log('Saved language:', savedLanguage);
+            
+            // Apply saved language
+            if (typeof applyTranslations === 'function') {
+                applyTranslations(savedLanguage);
+                
+                // Update UI to reflect current language
+                const currentLang = document.getElementById('currentLang');
+                if (currentLang) {
+                    currentLang.textContent = savedLanguage.toUpperCase();
+                }
+                
+                // Update active state in dropdown
+                const options = document.querySelectorAll('.language-option');
+                options.forEach(option => {
+                    option.classList.remove('active');
+                    if (option.dataset.lang === savedLanguage) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+
+            // Handle user authentication display
+            const userDropdown = document.getElementById('userDropdown');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const logoutBtnMob = document.getElementById('logout_btn_mob');
+
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+            if (isLoggedIn && userDropdown) {
+                userDropdown.style.display = 'inline-block';
+                if (logoutBtnMob) {
+                    logoutBtnMob.style.display = 'block';
+                }
+
+                // Get user data from localStorage
+                const userNameValue = localStorage.getItem('userName') || 'User';
+                const userEmailValue = localStorage.getItem('userEmail') || 'user@example.com';
+
+                // Update user info
+                if (userName) userName.textContent = userNameValue;
+                if (userEmail) userEmail.textContent = userEmailValue;
+                if (userAvatar) userAvatar.textContent = userNameValue.charAt(0).toUpperCase();
+            }
+        });
+    </script>
 </body>
 </html>
