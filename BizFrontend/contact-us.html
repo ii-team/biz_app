@@ -192,7 +192,7 @@
                     </div>
                     <div class="two">
                         <div class="input_field">
-                            <label for="pdf">
+                            <label for="company_banner">
                                 <span data-key="company_banner_label">Company Banner</span>
                                 <div class="info-container">
                                     <div class="info-tooltip" data-key="company_banner_tooltip">
@@ -203,34 +203,32 @@
                             </label>
                             <input type="file" id="company_banner" name="company_banner" class="file_field" accept=".png,.jpeg,.jpg" required>
                         </div>
-                            <div class="input_field">
-                                <label for="short_desc">
-                                    <span data-key="short_description_label">Short Description</span>
-                                    <div class="info-container">
-                                        <div class="info-tooltip" data-key="short_description_tooltip">
-                                            Short text that will appear on your organization card.
-                                        </div>
-                                        <span class="info"><img src="static/images/info.png" alt=""></span>
+                        <div class="input_field">
+                            <label for="short_desc">
+                                <span data-key="short_description_label">Short Description</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="short_description_tooltip">
+                                        Short text that will appear on your organization card.
                                     </div>
-                                </label>
-                                <input type="text" id="short_desc" name="short_desc" data-key="short_description_placeholder" placeholder="A quick insight into our mission..." required>
-                            </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
+                                </div>
+                            </label>
+                            <input type="text" id="short_desc" name="short_desc" data-key="short_description_placeholder" placeholder="A quick insight into our mission..." required>
                         </div>
-                        <div class="two">
-                            <div class="input_field">
-                                <label for="company_logo">
-                                    <span data-key="company_logo_label">Company Logo</span>
-                                    <div class="info-container">
-                                        <div class="info-tooltip" data-key="company_logo_tooltip">
-                                            Upload your company logo (used on cards and in listings).
-                                        </div>
-                                        <span class="info"><img src="static/images/info.png" alt=""></span>
+                    </div>
+                    <div class="two">
+                        <div class="input_field">
+                            <label for="company_logo">
+                                <span data-key="company_logo_label">Company Logo</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="company_logo_tooltip">
+                                        Upload your company logo (used on cards and in listings).
                                     </div>
-                                </label>
-                                <input type="file" id="company_logo" class="file_field" name="company_logo" accept=".png,.jpeg,.jpg" required>
-                            </div>
-                        
-                        
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
+                                </div>
+                            </label>
+                            <input type="file" id="company_logo" class="file_field" name="company_logo" accept=".png,.jpeg,.jpg" required>
+                        </div>
                         <div class="input_field">
                             <label for="profile_photo">
                                 <span data-key="profile_photo_label">Your Photo</span>
@@ -242,6 +240,28 @@
                                 </div>
                             </label>
                             <input type="file" id="profile_photo" class="file_field" name="profile_photo" accept=".png,.jpeg,.jpg" required>
+                        </div>
+                    </div>
+                    <!-- NEW: Multiple PDF Upload Section -->
+                    <div class="one">
+                        <div class="input_field_full">
+                            <label for="pdf_files">
+                                <span data-key="pdf_files_label">PDF Documents</span>
+                                <div class="info-container">
+                                    <div class="info-tooltip" data-key="pdf_files_tooltip">
+                                        Upload one or more PDF documents for your organization (brochures, presentations, etc.)
+                                    </div>
+                                    <span class="info"><img src="static/images/info.png" alt=""></span>
+                                </div>
+                            </label>
+                            <input type="file" 
+                                   id="pdf_files" 
+                                   name="pdf_files" 
+                                   class="file_field" 
+                                   accept=".pdf" 
+                                   multiple 
+                                   required>
+                            <small class="file-count" id="pdf_file_count">No files selected</small>
                         </div>
                     </div>
                     <div class="one">
@@ -266,7 +286,6 @@
                             <img id="dark_arrow" src="static/images/arrow-dark.png" alt="Arrow">
                         </a>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -298,6 +317,25 @@
          document.getElementById('ai-chat-messages').appendChild(div);
      </script>
      <script>
+        // File count display functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const pdfInput = document.getElementById('pdf_files');
+            const fileCount = document.getElementById('pdf_file_count');
+            
+            if (pdfInput && fileCount) {
+                pdfInput.addEventListener('change', function() {
+                    const count = this.files.length;
+                    if (count === 0) {
+                        fileCount.textContent = 'No files selected';
+                    } else if (count === 1) {
+                        fileCount.textContent = '1 file selected';
+                    } else {
+                        fileCount.textContent = count + ' files selected';
+                    }
+                });
+            }
+        });
+
         // Language Dropdown Toggle
         function toggleLanguageDropdown() {
             const dropdown = document.getElementById('languageDropdown');

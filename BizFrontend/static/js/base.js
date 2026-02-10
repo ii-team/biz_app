@@ -1,5 +1,5 @@
 const BACKEND_URL = "https://bizbackend.famsketch.eu";
-// const BACKEND_URL = "http://localhost:8000";
+// const BACKEND_URL = "http://localhost:8003";
 
 // Cookie Functions
 function setCookie(name, value, days = 30, path = '/', secure = false, sameSite = 'lax') {

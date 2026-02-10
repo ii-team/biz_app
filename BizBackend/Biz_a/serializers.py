@@ -1,10 +1,16 @@
 from rest_framework import serializers 
-from .models import Organization, User
+from .models import Organization, User, OrganizationPDF
 import os 
+
+class OrganizationPDFSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrganizationPDF
+        fields = ['id', 'pdf_file', 'file_name', 'uploaded_at']
 
 class OrganizationSerializer(serializers.ModelSerializer): 
     profile_pic = serializers.SerializerMethodField()
     company_banner = serializers.SerializerMethodField()
+    pdfs = OrganizationPDFSerializer(many=True, read_only=True)
     company_logo = serializers.SerializerMethodField()
 
     class Meta: 

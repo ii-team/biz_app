@@ -2,7 +2,7 @@
 
 // Backend API URL - Update this based on your environment
 const BACKEND_URL = 'https://bizbackend.famsketch.eu';
-// const BACKEND_URL = 'http://localhost:8000';
+// const BACKEND_URL = 'http://localhost:8003';
 
 
 // Google OAuth Client ID - Get from Google Cloud Console

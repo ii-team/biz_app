@@ -60,11 +60,11 @@ def get_business_card(request):
         'org': serializer.data,
     }, status=status.HTTP_200_OK)
 
-    
-@api_view (['POST'])
+@api_view(['POST'])
 def create_business_card(request):
     try:
         if "email" not in request.data or "org_name" not in request.data:
+            print(1)
             return Response({
                 'success': False,
                 'message': 'Email and org name is required'
@@ -74,12 +74,14 @@ def create_business_card(request):
         org_name = request.data.get('org_name')
         
         if Organization.objects.filter(email=email).exists():
+            print(2)
             return Response({
                 'success': False,
                 'message': 'Email already exists'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         if Organization.objects.filter(org_name=org_name).exists():
+            print(3)
             return Response({
                 'success': False,
                 'message': 'Organization name already exists'
@@ -89,7 +91,8 @@ def create_business_card(request):
             org_name=request.data.get('org_name'),
             email=request.data.get('email'),
         )   
-            # Extract form data
+        
+        # Extract form data
         if "responsible_person" in request.data:
             org.responsible_person = request.data.get('responsible_person')
         if "phone" in request.data:
@@ -111,16 +114,28 @@ def create_business_card(request):
         if "short_desc" in request.data:
             org.short_description = request.data.get('short_desc')
 
+        org.save()
+
+        # Handle multiple PDF uploads
+        pdf_files = request.FILES.getlist('pdf_files')  # Get list of files
+        if pdf_files:
+            for pdf_file in pdf_files:
+                OrganizationPDF.objects.create(
+                    organization=org,
+                    pdf_file=pdf_file,
+                    file_name=pdf_file.name
+                )
+
+        # Existing API calls
         data = {
-            "user_id" : os.getenv("USER_ID"),
-            "api_password" : os.getenv("API_PASSWORD"),
-            "data" : request.data.get('description'),
-            "name" : org_name,
+            "user_id": os.getenv("USER_ID"),
+            "api_password": os.getenv("API_PASSWORD"),
+            "data": request.data.get('description'),
+            "name": org_name,
         }
         r = requests.post('https://iielara.com/api/addData', data=data)
         org.iiealra_index_id = r.json().get('index')       
         org.save()
-        org = OrganizationSerializer(org)
 
         data_of_company = f'''\n\n-----------------------\n 
         Organization Name: {org_name} \n 
@@ -135,11 +150,11 @@ def create_business_card(request):
 
         # base biz data update
         data = {
-            "user_id" : os.getenv("USER_ID"),
-            "api_password" : os.getenv("API_PASSWORD"),
-            "index_id" : os.getenv("INDEX_ID"),
-            "data" : data_of_company,
-            "method" : "append"
+            "user_id": os.getenv("USER_ID"),
+            "api_password": os.getenv("API_PASSWORD"),
+            "index_id": os.getenv("INDEX_ID"),
+            "data": data_of_company,
+            "method": "append"
         }
         r = requests.post('https://iielara.com/api/updateData', data=data)
         if r.status_code != 200:
@@ -149,19 +164,20 @@ def create_business_card(request):
                 'message': 'Error in fetching chat response'
             }, status=status.HTTP_400_BAD_REQUEST)        
 
+        org_serializer = OrganizationSerializer(org)
         return Response({
             'success': True,
             'message': 'Organization created successfully',
-            'org': org.data,
+            'org': org_serializer.data,
         }, status=status.HTTP_201_CREATED)
+        
     except Exception as e:
         print(e)
-        # Return error response
         return Response({
             'success': False,
             'message': str(e)
         }, status=status.HTTP_400_BAD_REQUEST)
-        
+
 @api_view(['PUT'])
 def update_business_card(request):
     try:
@@ -178,10 +194,8 @@ def update_business_card(request):
                 'message': 'Invalid email'
             }, status=status.HTTP_400_BAD_REQUEST)  
 
-        # Get the organization instance
         organization = Organization.objects.get(email=email)
         
-        # For form data with file uploads
         if "org_name" in request.data:
             organization.org_name = request.data.get('org_name')
         if "responsible_person" in request.data:
@@ -194,17 +208,32 @@ def update_business_card(request):
             organization.linkedin = request.data.get('linkedin')
         if "description" in request.data:
             organization.description = request.data.get('description')
-        # Handle file uploads if present
-
         if 'profile_pic' in request.FILES:
             organization.profile_pic = request.FILES['profile_pic']
-        if 'pdf' in request.FILES:
-            organization.pdf = request.FILES['pdf']
-        # Save the updated organization instance
+
         organization.save()
-        # Serialize the updated organization instance
+
+        # Handle multiple PDF uploads for update
+        pdf_files = request.FILES.getlist('pdf_files')
+        if pdf_files:
+            # Option 1: Add new PDFs without deleting old ones
+            for pdf_file in pdf_files:
+                OrganizationPDF.objects.create(
+                    organization=organization,
+                    pdf_file=pdf_file,
+                    file_name=pdf_file.name
+                )
+            
+            # Option 2: Replace all PDFs (uncomment if you want this behavior)
+            # organization.pdfs.all().delete()
+            # for pdf_file in pdf_files:
+            #     OrganizationPDF.objects.create(
+            #         organization=organization,
+            #         pdf_file=pdf_file,
+            #         file_name=pdf_file.name
+            #     )
+
         org = OrganizationSerializer(organization)
-        # Return success response
         return Response({
             'success': True,
             'message': 'Organization updated successfully',
@@ -212,12 +241,11 @@ def update_business_card(request):
         }, status=status.HTTP_200_OK)
     
     except Exception as e:
-        # Return error response
         return Response({
             'success': False,
             'message': str(e)
         }, status=status.HTTP_400_BAD_REQUEST)
-    
+
 @api_view(['DELETE'])
 def delete_business_card(request):
     try:

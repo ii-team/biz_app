@@ -18,6 +18,20 @@ class Organization(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
+# NEW MODEL for storing multiple PDFs
+class OrganizationPDF(models.Model):
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='pdfs')
+    pdf_file = models.FileField(upload_to='static/organization_pdfs/')
+    file_name = models.CharField(max_length=500, null=True, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'organization_pdfs'
+        ordering = ['-uploaded_at']
+    
+    def __str__(self):
+        return f"{self.organization.org_name} - {self.file_name}"
+
 class User(models.Model):
     """
     Custom User model for authentication
